@@ -1,5 +1,4 @@
-           
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
@@ -76,8 +75,8 @@
 </head>
 <body class="relative flex flex-col items-center justify-between p-4 min-h-screen pb-12">
 
-    <!-- GitHub repozitoriyangizdagi musiqa.mp3 fayliga ulangan audio teg -->
-    <audio id="bg-music" loop src="musiqa.mp3"></audio>
+    <!-- Siz taqdim etgan to'g'ri GitHub Raw Musiqa havolasi -->
+    <audio id="bg-music" loop src="https://raw.githubusercontent.com/Yaxshi-bola/love/420755c4626bb7c79a2f7c19b202dd9da473172c/musiqa.mp3"></audio>
 
     <!-- Yuqoridagi Boshqaruv tugmalari (Musiqa va Telegram) -->
     <div class="w-full max-w-md flex justify-between items-center z-50 px-2 mt-2">
@@ -272,8 +271,8 @@
                 <!-- Fon Musiqasi Sozlamasi -->
                 <div class="bg-pink-100/50 p-3 rounded-xl border border-pink-200">
                     <p class="font-bold text-pink-700 mb-2">🎵 Fon musiqasini o'zgartirish:</p>
-                    <label class="block text-[10px] text-gray-500 mb-1">Musiqa (.mp3) havolasi yoki fayl nomi:</label>
-                    <input type="text" id="set-music-url" class="w-full p-2 border border-pink-200 rounded font-bold text-gray-700" placeholder="musiqa.mp3">
+                    <label class="block text-[10px] text-gray-500 mb-1">Musiqa (.mp3) havolasi:</label>
+                    <input type="text" id="set-music-url" class="w-full p-2 border border-pink-200 rounded font-bold text-gray-700" placeholder="https://raw.githubusercontent.com/...">
                 </div>
 
                 <!-- Savol 1 -->
@@ -466,7 +465,6 @@
         });
 
         function initSettingsForm() {
-            // Musiqa URL panelini nisbiy nom ("musiqa.mp3") bilan to'ldirish
             document.getElementById('set-music-url').value = document.getElementById('bg-music').getAttribute('src');
 
             document.getElementById('set-q1-text').value = quizData[0].question;
@@ -773,4 +771,3 @@
 
 </body>
 </html>
-
