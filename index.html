@@ -61,7 +61,7 @@
 </head>
 <body class="relative flex flex-col items-center justify-center p-4 min-h-screen">
 
-    <!-- @yovvoyiroq Telegram Kanali (Kichik va burchakda) -->
+    <!-- @yovvoyiroq Telegram Kanali (Kichik va o'ng burchakda) -->
     <div class="absolute top-4 right-4 z-40">
         <a href="https://t.me/yovvoyiroq" target="_blank" rel="noopener noreferrer" 
            class="inline-flex items-center space-x-1.5 bg-white/90 backdrop-blur-sm border border-pink-200 px-3.5 py-2 rounded-full shadow-md text-pink-600 hover:text-pink-700 hover:bg-white transition-all transform hover:scale-105 active:scale-95 text-xs font-semibold tracking-wide">
@@ -397,6 +397,31 @@
         let currentStepIndex = 0;
         let lastDodgeTime = 0;
 
+        // Sana va kunni dinamik aniqlash funksiyasi (Eng yaqin Chorshanba kunining real sanasini hisoblaydi)
+        function getUpcomingWednesdayDate() {
+            const today = new Date();
+            const dayOfWeek = today.getDay(); // 0: Yak, 1: Dush, ..., 3: Chor, ...
+            let daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
+            
+            // Agar bugun Chorshanba bo'lsa, kelasi haftadagi Chorshanbani ko'rsatamiz
+            if (daysUntilWednesday === 0) {
+                daysUntilWednesday = 7;
+            }
+            
+            const targetDate = new Date(today);
+            targetDate.setDate(today.getDate() + daysUntilWednesday);
+            
+            const months = [
+                "yanvar", "fevral", "mart", "aprel", "may", "iyun", 
+                "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"
+            ];
+            
+            const day = targetDate.getDate();
+            const month = months[targetDate.getMonth()];
+            
+            return `Chorshanba, ${day}-${month}`;
+        }
+
         // Standart kviz savollari va 3 talik variantlari (1 to'g'ri, 2 noto'g'ri)
         let quizData = [
             {
@@ -446,6 +471,8 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             initSettingsForm();
+            // Yuklanish vaqtida dinamik sanani hisoblab chiptaga o'rnatish
+            document.getElementById('ticket-date').innerText = getUpcomingWednesdayDate();
         });
 
         // Sozlamalar oynasida joriy qiymatlarni (3 talik variantlar bilan) to'ldirish
@@ -514,8 +541,9 @@
             // Chipta tafsilotlarini yangi tahrirlangan qiymatlar bilan yangilash
             document.getElementById('ticket-seans').innerText = `${quizData[2].options[0].text} 🧸`;
             
+            // Agar yigit 1-savol to'g'ri javobini o'zgartirsa, chiptadagi sana ham o'sha tahrirlangan kunga o'tadi
             const opt1_raw = quizData[0].options[0].text;
-            const cleanDate = opt1_raw.includes("Ha") ? "Chorshanba, 24-iyun" : opt1_raw;
+            const cleanDate = opt1_raw.includes("Ha") ? getUpcomingWednesdayDate() : opt1_raw;
             document.getElementById('ticket-date').innerText = cleanDate;
 
             toggleSettingsModal(false);
