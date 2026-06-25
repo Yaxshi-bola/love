@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="uz" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +8,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome piktogrammalar uchun -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins va Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,500;1,700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
-        
         body {
-            font-family: 'Comfortaa', cursive;
+            font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #ffeef2 0%, #ffd1dc 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        .heading-font {
+        .romantic-title {
             font-family: 'Playfair Display', serif;
         }
 
@@ -57,286 +57,262 @@
         .stubborn-btn {
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.25s ease-out, left 0.25s ease-out, opacity 0.3s ease, scale 0.3s ease;
         }
-
-        /* Vinil disk aylanish animatsiyasi */
-        .spin-slow {
-            animation: spin 6s linear infinite;
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
     </style>
 </head>
-<body class="relative flex flex-col items-center justify-between p-4 min-h-screen pb-12">
+<body class="relative flex flex-col items-center justify-center p-4 min-h-screen">
 
-    <!-- Audio Elementi: Vercel-da lokal musiqa.mp3 sifatida eng birinchi yuklanadi -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="musiqa.mp3" type="audio/mpeg">
-        <source src="https://cdn.jsdelivr.net/gh/Yaxshi-bola/love@main/musiqa.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Yuqoridagi boshqaruv paneli (Musiqa pleyer va Telegram havola) -->
-    <div class="w-full max-w-md flex justify-between items-center z-50 px-2 mt-2">
-        <!-- Musiqa pleyer knopkasi (Aylanuvchi vinil bilan) -->
-        <button id="music-toggle-btn" onclick="toggleMusic()" 
-                class="inline-flex items-center space-x-1.5 bg-white/90 backdrop-blur-sm border border-pink-200 px-3 py-1.5 rounded-full shadow-md text-pink-600 hover:text-pink-700 hover:bg-white transition-all transform hover:scale-105 active:scale-95 text-[10px] sm:text-xs font-bold">
-            <i id="music-icon" class="fa-solid fa-compact-disc text-sm sm:text-base text-pink-500"></i>
-            <span id="music-text">Musiqa o'chiq</span>
-        </button>
-
-        <!-- @yovvoyiroq Telegram Kanali (Kichik va nafis formatda) -->
+    <!-- @yovvoyiroq Telegram Kanali (Kichik va burchakda) -->
+    <div class="absolute top-4 right-4 z-40">
         <a href="https://t.me/yovvoyiroq" target="_blank" rel="noopener noreferrer" 
-           class="inline-flex items-center space-x-1 bg-white/90 backdrop-blur-sm border border-pink-200 px-2.5 py-1.5 rounded-full shadow-md text-pink-600 hover:text-pink-700 hover:bg-white transition-all transform hover:scale-105 active:scale-95 text-[10px] sm:text-xs font-bold tracking-tight">
-            <i class="fa-brands fa-telegram text-sm sm:text-base text-sky-400"></i>
+           class="inline-flex items-center space-x-1.5 bg-white/90 backdrop-blur-sm border border-pink-200 px-3.5 py-2 rounded-full shadow-md text-pink-600 hover:text-pink-700 hover:bg-white transition-all transform hover:scale-105 active:scale-95 text-xs font-semibold tracking-wide">
+            <i class="fa-brands fa-telegram text-base text-sky-400"></i>
             <span>@yovvoyiroq</span>
-            <i class="fa-solid fa-arrow-up-right-from-square text-[8px] text-pink-400"></i>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[9px] text-pink-400"></i>
         </a>
     </div>
 
     <!-- Asosiy Card Konteyner -->
-    <div class="w-full flex-grow flex items-center justify-center py-6">
-        <div class="relative w-full max-w-md bg-white/85 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-8 border border-white/60 z-10 transition-all duration-500">
-            
-            <!-- Yuqori bezak belgisi -->
-            <div class="flex justify-center mb-4">
-                <div class="relative">
-                    <span class="absolute -top-1 -right-1 text-yellow-400 text-xl animate-bounce">✨</span>
-                    <span class="absolute -bottom-1 -left-1 text-pink-500 text-lg animate-pulse">💖</span>
-                    <div class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-300">
-                        <i class="fa-solid fa-heart-pulse text-pink-500 text-2xl"></i>
-                    </div>
+    <div class="w-full max-w-md bg-white/85 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-8 border border-white/60 z-10 transition-all duration-500 my-auto">
+        
+        <!-- Yuqori bezak belgisi -->
+        <div class="flex justify-center mb-5">
+            <div class="relative">
+                <span class="absolute -top-1 -right-1 text-yellow-400 text-xl animate-bounce">✨</span>
+                <span class="absolute -bottom-1 -left-1 text-pink-500 text-lg animate-pulse">💖</span>
+                <div class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-300">
+                    <i class="fa-solid fa-heart-pulse text-pink-500 text-2xl"></i>
                 </div>
             </div>
-
-            <!-- 1. ISMLARNI KIRITISH BOSQICHI -->
-            <div id="screen-name-input" class="text-center page-transition">
-                <p class="text-pink-500 font-bold tracking-wide text-xs uppercase mb-1">Xush kelibsiz! 💕</p>
-                <h1 class="heading-font text-2xl font-bold text-gray-800 leading-snug mb-4">
-                    Sizga atalgan maxsus kviz
-                </h1>
-                <p class="text-gray-600 text-sm mb-6 leading-relaxed">
-                    Boshlashdan oldin, iltimos, ismlarni kiriting:
-                </p>
-                
-                <!-- Qizning ismi -->
-                <div class="mb-4 text-left">
-                    <label class="block text-xs font-bold text-pink-500 mb-1 ml-2">QIZNING ISMI:</label>
-                    <input type="text" id="user-name-field" placeholder="Masalan, Sarvinoz" 
-                        class="w-full px-5 py-3 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:outline-none text-center font-bold text-gray-700 bg-white/50 placeholder-gray-400 text-md shadow-sm transition-all">
-                    <p id="name-error" class="text-rose-500 text-xs mt-1 hidden text-center">Iltimos, qizning ismini kiriting ✍️</p>
-                </div>
-
-                <!-- Yigitning ismi -->
-                <div class="mb-6 text-left">
-                    <label class="block text-xs font-bold text-pink-500 mb-1 ml-2">YIGITNING ISMI:</label>
-                    <input type="text" id="boy-name-field" placeholder="Masalan, Akmal" 
-                        class="w-full px-5 py-3 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:outline-none text-center font-bold text-gray-700 bg-white/50 placeholder-gray-400 text-md shadow-sm transition-all">
-                    <p id="boy-name-error" class="text-rose-500 text-xs mt-1 hidden text-center">Iltimos, yigitning ismini kiriting ✍️</p>
-                </div>
-
-                <!-- Musiqani va dasturni ishga tushirish tugmasi -->
-                <button onclick="saveNameAndStart()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-pink-200 transition-all transform active:scale-95 text-lg flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-volume-high animate-bounce"></i>
-                    <span>Musiqani yoqish va boshlash ✨</span>
-                </button>
-
-                <div class="mt-4 p-3 bg-rose-50/50 rounded-xl border border-pink-100/50 text-[10px] text-gray-500 text-left space-y-1">
-                    <p class="font-bold text-pink-600"><i class="fa-solid fa-circle-info"></i> Ovoz chiqmayaptimi?</p>
-                    <p>Agar telefoningiz yonidagi "Silent" (ovozsiz rejim) tugmasi yoqilgan bo'lsa, uni o'chiring. Shuningdek, telefoningiz ovoz balandligini tekshiring 🔊</p>
-                </div>
-            </div>
-
-            <!-- 2. INTRO EKRAN (ISMLAR BILAN) -->
-            <div id="screen-intro" class="hidden text-center page-transition">
-                <p class="text-pink-500 font-bold tracking-wide text-sm mb-2">maxsus sovg'a 💌</p>
-                
-                <h1 id="intro-greeting" class="heading-font text-gray-800 leading-tight mb-4">
-                    sen uchun, <br>
-                    <span class="text-4xl md:text-5xl font-black text-rose-600 block mt-2 tracking-wide drop-shadow-sm animate-pulse uppercase">SARVINOZ</span>
-                </h1>
-
-                <h2 class="heading-font text-2xl font-bold text-gray-800 mb-3">
-                    Kichkina kviz — <br><span class="text-pink-600">katta sir bilan</span>
-                </h2>
-                <p id="intro-description" class="text-gray-600 text-sm mb-8 leading-relaxed px-2">
-                    Bir nechta savolga javob ber... lekin ehtiyot bo'l — Akmalning ba'zi tugmalari juda injiq va qaysar 🫣
-                </p>
-                <button onclick="startQuiz()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-pink-200 transition-all transform active:scale-95 text-lg">
-                    Boshladik 🚀
-                </button>
-            </div>
-
-            <!-- 3. SAVOLLAR EKRANI -->
-            <div id="screen-quiz" class="hidden page-transition">
-                <!-- Progress bar -->
-                <div class="w-full bg-pink-100 rounded-full h-1.5 mb-6">
-                    <div id="quiz-progress" class="bg-pink-500 h-1.5 rounded-full transition-all duration-300" style="width: 25%"></div>
-                </div>
-
-                <!-- Savol matni -->
-                <h2 id="quiz-question" class="heading-font text-xl md:text-2xl font-bold text-gray-800 text-center mb-8 px-2 leading-snug min-h-[64px]">
-                    Savol yuklanmoqda...
-                </h2>
-
-                <!-- Variantlar joylashadigan hudud -->
-                <div id="quiz-options" class="relative flex flex-col space-y-4 min-h-[290px] justify-start pt-2">
-                    <!-- Dinamik ravishda to'g'ri va noto'g'ri variantlar kiritiladi -->
-                </div>
-
-                <!-- Qochuvchi tugma reaktsiyalari -->
-                <div id="reaction-toast" class="opacity-0 transition-opacity duration-300 mt-6 text-center text-rose-500 font-bold text-sm min-h-[24px]">
-                    Injiq tugma! 🤪
-                </div>
-            </div>
-
-            <!-- 4. YAKUNIY CHIPTA EKRANI -->
-            <div id="screen-success" class="hidden page-transition">
-                <div class="text-center mb-6">
-                    <span class="inline-block bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">to'g'ri tanlading 💕</span>
-                    <h1 id="success-title" class="heading-font text-2xl md:text-3xl font-bold text-gray-800">Uchrashuv taklifi!</h1>
-                </div>
-
-                <!-- Chipta dizayni -->
-                <div class="relative bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-pink-200 rounded-2xl p-6 overflow-hidden shadow-inner mb-6">
-                    <!-- Dekorativ chipta teshiklari -->
-                    <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-r-2 border-pink-200"></div>
-                    <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-l-2 border-pink-200"></div>
-
-                    <!-- Chipta sarlavhasi -->
-                    <div class="flex justify-between items-center border-b border-dashed border-pink-200 pb-4 mb-4">
-                        <div class="flex items-center space-x-2">
-                            <span class="text-xl">🎪</span>
-                            <span class="font-bold text-xs text-gray-700 tracking-wider">MAGIC CITY</span>
-                        </div>
-                        <span class="text-[9px] md:text-[10px] bg-rose-500 text-white font-bold px-2 py-0.5 rounded">IKKI KISHILIK CHIPTA</span>
-                    </div>
-
-                    <!-- Chipta tafsilotlari -->
-                    <div class="space-y-3.5 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">KIM UCHUN:</span>
-                            <span id="ticket-user-name" class="font-black text-pink-600 text-right text-lg animate-pulse tracking-wide">Sarvinoz ✨</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">SEANS:</span>
-                            <span id="ticket-seans" class="font-bold text-gray-800 text-right">O'yinchoqlar tarixi 5 🧸</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">QACHON:</span>
-                            <span id="ticket-date" class="font-bold text-gray-800 text-right">Chorshanba, 24-iyun</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">VAQT:</span>
-                            <span class="font-bold text-gray-800 text-right">23:00</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-500">JOY:</span>
-                            <span class="font-bold text-pink-600 text-right flex items-center gap-1 justify-end">
-                                yonimda <i class="fa-solid fa-heart animate-pulse"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Taklifnoma yakuni -->
-                <p id="success-footer-text" class="text-center text-gray-600 text-xs italic leading-relaxed mb-6 px-4">
-                    Chiroyli bo'lib tayyorlan, qolganini o'zim hal qilaman 😉 <br>
-                    <span id="sender-signature" class="not-italic font-bold text-gray-800 block mt-2 text-sm">Seni taklif qilyapti: ering Akmal ❤️</span>
-                </p>
-
-                <!-- Qayta o'tish tugmasi -->
-                <button onclick="restartQuiz()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold py-3 px-6 rounded-xl transition-all transform active:scale-95 flex items-center justify-center space-x-2 text-sm">
-                    <i class="fa-solid fa-rotate-left"></i>
-                    <span>boshqa ism bilan o'tish</span>
-                </button>
-            </div>
-
         </div>
+
+        <!-- 1. ISMLARNI KIRITISH BOSQICHI -->
+        <div id="screen-name-input" class="text-center page-transition">
+            <p class="text-pink-500 font-bold tracking-widest text-xs uppercase mb-1.5">Xush kelibsiz! 💕</p>
+            <h1 class="romantic-title text-3xl font-extrabold text-gray-800 leading-snug mb-5">
+                Maxsus Kviz taklifnomasi
+            </h1>
+
+            <!-- Qizning ismi -->
+            <div class="mb-5 text-left">
+                <label class="block text-xs font-bold text-pink-500 mb-1.5 ml-2 uppercase tracking-wider">Qizning ismi:</label>
+                <input type="text" id="user-name-field" placeholder="Masalan, Sarvinoz" 
+                    class="w-full px-5 py-3.5 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:outline-none text-center font-semibold text-gray-700 bg-white/50 placeholder-gray-400 text-md shadow-sm transition-all">
+                <p id="name-error" class="text-rose-500 text-xs mt-1.5 hidden text-center">Iltimos, qizning ismini kiriting ✍️</p>
+            </div>
+
+            <!-- Yigitning ismi -->
+            <div class="mb-7 text-left">
+                <label class="block text-xs font-bold text-pink-500 mb-1.5 ml-2 uppercase tracking-wider">Yigitning ismi:</label>
+                <input type="text" id="boy-name-field" placeholder="Masalan, Akmal" 
+                    class="w-full px-5 py-3.5 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:outline-none text-center font-semibold text-gray-700 bg-white/50 placeholder-gray-400 text-md shadow-sm transition-all">
+                <p id="boy-name-error" class="text-rose-500 text-xs mt-1.5 hidden text-center">Iltimos, yigitning ismini kiriting ✍️</p>
+            </div>
+
+            <!-- Davom etish tugmasi -->
+            <button onclick="saveNameAndStart()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-pink-200 transition-all transform active:scale-95 text-md flex items-center justify-center space-x-2">
+                <span>Davom etish ✨</span>
+            </button>
+
+            <!-- Tishli g'ildirakcha sozlamalar tugmasi (faqat birinchi ekranda chiqadi) -->
+            <div id="settings-trigger-container" class="mt-6 flex justify-center">
+                <button onclick="toggleSettingsModal(true)" class="inline-flex items-center space-x-1.5 text-xs text-gray-400 hover:text-pink-500 transition-all font-bold">
+                    <i class="fa-solid fa-gear animate-spin-slow text-sm text-pink-300"></i>
+                    <span>Savollarni tahrirlash</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. INTRO EKRAN (ISMLAR BILAN) -->
+        <div id="screen-intro" class="hidden text-center page-transition">
+            <p class="text-pink-500 font-bold tracking-widest text-xs uppercase mb-1">Maxsus sovg'a 💌</p>
+            
+            <h1 id="intro-greeting" class="romantic-title text-gray-800 leading-tight mb-5">
+                sen uchun, <br>
+                <span class="text-4xl md:text-5xl font-black text-rose-600 block mt-2.5 tracking-wide drop-shadow-sm animate-pulse uppercase">SARVINOZ</span>
+            </h1>
+
+            <h2 class="romantic-title text-2xl font-bold text-gray-800 mb-4 leading-snug">
+                Kichkina kviz — <br><span class="text-pink-600">katta sir bilan</span>
+            </h2>
+            <p id="intro-description" class="text-gray-600 text-sm mb-8 leading-relaxed px-2 font-light">
+                Bir nechta savolga javob ber... lekin ehtiyot bo'l — Akmalning ba'zi tugmalari juda injiq va qaysar 🫣
+            </p>
+            <button onclick="startQuiz()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-pink-200 transition-all transform active:scale-95 text-md tracking-wider">
+                Boshladik 🚀
+            </button>
+        </div>
+
+        <!-- 3. SAVOLLAR EKRANI (Sozlamalar butunlay yo'qoladi) -->
+        <div id="screen-quiz" class="hidden page-transition">
+            <!-- Progress bar -->
+            <div class="w-full bg-pink-100 rounded-full h-1.5 mb-6">
+                <div id="quiz-progress" class="bg-pink-500 h-1.5 rounded-full transition-all duration-300" style="width: 25%"></div>
+            </div>
+
+            <!-- Savol matni -->
+            <h2 id="quiz-question" class="romantic-title text-xl md:text-2xl font-bold text-gray-800 text-center mb-8 px-2 leading-snug min-h-[64px]">
+                Savol yuklanmoqda...
+            </h2>
+
+            <!-- Variantlar joylashadigan hudud -->
+            <div id="quiz-options" class="relative flex flex-col space-y-4 min-h-[290px] justify-start pt-2">
+                <!-- Dinamik ravishda variantlar joylashadi -->
+            </div>
+
+            <!-- Qochuvchi tugma reaktsiyalari -->
+            <div id="reaction-toast" class="opacity-0 transition-opacity duration-300 mt-6 text-center text-rose-500 font-bold text-sm min-h-[24px]">
+                Injiq tugma! 🤪
+            </div>
+        </div>
+
+        <!-- 4. YAKUNIY CHIPTA EKRANI -->
+        <div id="screen-success" class="hidden page-transition">
+            <div class="text-center mb-6">
+                <span class="inline-block bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">to'g'ri tanlading 💕</span>
+                <h1 id="success-title" class="romantic-title text-2xl md:text-3xl font-bold text-gray-800">Uchrashuv taklifi!</h1>
+            </div>
+
+            <!-- Chipta dizayni -->
+            <div class="relative bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-pink-200 rounded-2xl p-6 overflow-hidden shadow-inner mb-6">
+                <!-- Dekorativ chipta teshiklari -->
+                <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-r-2 border-pink-200"></div>
+                <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-l-2 border-pink-200"></div>
+
+                <!-- Chipta sarlavhasi -->
+                <div class="flex justify-between items-center border-b border-dashed border-pink-200 pb-4 mb-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xl">🎪</span>
+                        <span class="font-bold text-xs text-gray-700 tracking-wider">MAGIC CITY</span>
+                    </div>
+                    <span class="text-[9px] md:text-[10px] bg-rose-500 text-white font-bold px-2 py-0.5 rounded">IKKI KISHILIK CHIPTA</span>
+                </div>
+
+                <!-- Chipta tafsilotlari -->
+                <div class="space-y-4 text-sm">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 font-medium">KIM UCHUN:</span>
+                        <span id="ticket-user-name" class="font-extrabold text-pink-600 text-right text-lg animate-pulse tracking-wide uppercase">Sarvinoz ✨</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 font-medium">SEANS:</span>
+                        <span id="ticket-seans" class="font-bold text-gray-800 text-right">O'yinchoqlar tarixi 5 🧸</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 font-medium">QACHON:</span>
+                        <span id="ticket-date" class="font-bold text-gray-800 text-right">Chorshanba, 24-iyun</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 font-medium">VAQT:</span>
+                        <span class="font-bold text-gray-800 text-right">23:00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-400 font-medium">JOY:</span>
+                        <span class="font-bold text-pink-600 text-right flex items-center gap-1 justify-end">
+                            yonimda <i class="fa-solid fa-heart animate-pulse"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Taklifnoma yakuni -->
+            <p id="success-footer-text" class="text-center text-gray-500 text-xs italic leading-relaxed mb-6 px-4">
+                Chiroyli bo'lib tayyorlan, qolganini o'zim hal qilaman 😉 <br>
+                <span id="sender-signature" class="not-italic font-bold text-gray-800 block mt-2.5 text-sm">Seni taklif qilyapti: ering Akmal ❤️</span>
+            </p>
+
+            <!-- Qayta o'tish tugmasi -->
+            <button onclick="restartQuiz()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold py-3 px-6 rounded-2xl transition-all transform active:scale-95 flex items-center justify-center space-x-2 text-sm">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span>Boshqa ism bilan o'tish</span>
+            </button>
+        </div>
+
     </div>
 
-    <!-- 5. SOZLAMALAR PANELINI TAHRIRLASH TUGMASI -->
-    <div class="w-full max-w-md z-30 px-2">
-        <button onclick="toggleSettings()" class="w-full bg-white/70 backdrop-blur-sm hover:bg-white border border-pink-100 py-3 px-5 rounded-2xl text-gray-700 font-bold text-xs tracking-wider flex items-center justify-center space-x-2 shadow-md transition-all">
-            <i class="fa-solid fa-sliders text-pink-500"></i>
-            <span>⚙️ SAVOLLAR VA CHIPTANI TAHRIRLASH</span>
-        </button>
-
-        <div id="settings-panel" class="hidden mt-4 bg-white/95 backdrop-blur-md rounded-3xl p-5 border border-pink-100 shadow-xl max-h-[400px] overflow-y-auto space-y-4">
-            <div class="flex justify-between items-center border-b border-pink-100 pb-2">
-                <span class="font-bold text-gray-800 text-sm">⚙️ Savollarni sozlash</span>
-                <button onclick="toggleSettings()" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-circle-xmark text-lg"></i></button>
-            </div>
+    <!-- ⚙️ SOZLAMALAR FULL-SCREEN OVERLAY MODAL (Barcha 4 ta savol to'liq va keng ko'rinadi) -->
+    <div id="settings-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl p-6 flex flex-col max-h-[85vh] transition-all transform scale-95 duration-300">
             
-            <p class="text-[10px] text-gray-500 italic">Eslatma: Savollarni o'zgartirgach, kviz boshidan qayta yuklanadi va yangi variantlar paydo bo'ladi.</p>
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center border-b border-pink-100 pb-3 mb-4 flex-shrink-0">
+                <h3 class="font-bold text-gray-800 text-lg flex items-center space-x-2">
+                    <i class="fa-solid fa-sliders text-pink-500"></i>
+                    <span>Savollarni tahrirlash</span>
+                </h3>
+                <button onclick="toggleSettingsModal(false)" class="text-gray-400 hover:text-rose-500 transition-colors">
+                    <i class="fa-solid fa-circle-xmark text-2xl"></i>
+                </button>
+            </div>
 
-            <div class="space-y-4 text-xs">
-                <!-- Fon Musiqasi Sozlamasi -->
-                <div class="bg-pink-100/50 p-3 rounded-xl border border-pink-200">
-                    <p class="font-bold text-pink-700 mb-2">🎵 Fon musiqasini o'zgartirish:</p>
-                    <label class="block text-[10px] text-gray-500 mb-1">Musiqa (.mp3) havolasi yoki fayl nomi (sukut bo'yicha: musiqa.mp3):</label>
-                    <input type="text" id="set-music-url" class="w-full p-2 border border-pink-200 rounded font-bold text-gray-700" placeholder="musiqa.mp3">
-                </div>
-
+            <!-- Scrollable Content (4 ta savol to'liq joylashgan - 1 ta to'g'ri, 2 ta noto'g'ri variantlar uchun) -->
+            <div class="overflow-y-auto pr-1 space-y-5 flex-grow text-xs text-left">
+                
                 <!-- Savol 1 -->
-                <div class="bg-pink-50/50 p-3 rounded-xl border border-pink-100">
-                    <p class="font-bold text-pink-600 mb-2">1-Savol (Kun haqida):</p>
+                <div class="bg-pink-50/50 p-4 rounded-2xl border border-pink-100">
+                    <p class="font-bold text-pink-600 mb-2 text-sm">1-Savol (Sana/Kun haqida):</p>
                     <label class="block text-[10px] text-gray-500 mb-1">Savol matni:</label>
-                    <input type="text" id="set-q1-text" class="w-full p-2 border border-gray-200 rounded mb-2 font-bold text-gray-700">
+                    <input type="text" id="set-q1-text" class="w-full p-2.5 border border-gray-200 rounded-xl mb-3 font-semibold text-gray-700 focus:outline-none focus:border-pink-400 bg-white">
                     <label class="block text-[10px] text-green-600 mb-1">To'g'ri javob:</label>
-                    <input type="text" id="set-q1-correct" class="w-full p-2 border border-green-200 rounded mb-2 text-green-700">
-                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob (Qochadigan):</label>
-                    <input type="text" id="set-q1-wrong" class="w-full p-2 border border-rose-200 rounded">
+                    <input type="text" id="set-q1-correct" class="w-full p-2.5 border border-green-200 rounded-xl mb-3 text-green-700 font-semibold focus:outline-none focus:border-green-400 bg-white">
+                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob 1:</label>
+                    <input type="text" id="set-q1-wrong1" class="w-full p-2.5 border border-rose-200 rounded-xl mb-3 focus:outline-none focus:border-rose-400 bg-white font-semibold">
+                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob 2:</label>
+                    <input type="text" id="set-q1-wrong2" class="w-full p-2.5 border border-rose-200 rounded-xl focus:outline-none focus:border-rose-400 bg-white font-semibold">
                 </div>
 
                 <!-- Savol 2 -->
-                <div class="bg-pink-50/50 p-3 rounded-xl border border-pink-100">
-                    <p class="font-bold text-pink-600 mb-2">2-Savol (Manzil haqida):</p>
+                <div class="bg-pink-50/50 p-4 rounded-2xl border border-pink-100">
+                    <p class="font-bold text-pink-600 mb-2 text-sm">2-Savol (Uchrashuv manzili):</p>
                     <label class="block text-[10px] text-gray-500 mb-1">Savol matni:</label>
-                    <input type="text" id="set-q2-text" class="w-full p-2 border border-gray-200 rounded mb-2 font-bold text-gray-700">
+                    <input type="text" id="set-q2-text" class="w-full p-2.5 border border-gray-200 rounded-xl mb-3 font-semibold text-gray-700 focus:outline-none focus:border-pink-400 bg-white">
                     <label class="block text-[10px] text-green-600 mb-1">To'g'ri javob (Bu chiptadagi manzil bo'ladi):</label>
-                    <input type="text" id="set-q2-correct" class="w-full p-2 border border-green-200 rounded mb-2 text-green-700">
-                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob (Qochadigan):</label>
-                    <input type="text" id="set-q2-wrong" class="w-full p-2 border border-rose-200 rounded">
+                    <input type="text" id="set-q2-correct" class="w-full p-2.5 border border-green-200 rounded-xl mb-3 text-green-700 font-semibold focus:outline-none focus:border-green-400 bg-white">
+                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob 1:</label>
+                    <input type="text" id="set-q2-wrong1" class="w-full p-2.5 border border-rose-200 rounded-xl mb-3 focus:outline-none focus:border-rose-400 bg-white font-semibold">
+                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob 2:</label>
+                    <input type="text" id="set-q2-wrong2" class="w-full p-2.5 border border-rose-200 rounded-xl focus:outline-none focus:border-rose-400 bg-white font-semibold">
                 </div>
 
                 <!-- Savol 3 -->
-                <div class="bg-pink-50/50 p-3 rounded-xl border border-pink-100">
-                    <p class="font-bold text-pink-600 mb-2">3-Savol (Film / Narsa haqida):</p>
+                <div class="bg-pink-50/50 p-4 rounded-2xl border border-pink-100">
+                    <p class="font-bold text-pink-600 mb-2 text-sm">3-Savol (Tomosha qilinadigan narsa/film):</p>
                     <label class="block text-[10px] text-gray-500 mb-1">Savol matni:</label>
-                    <input type="text" id="set-q3-text" class="w-full p-2 border border-gray-200 rounded mb-2 font-bold text-gray-700">
+                    <input type="text" id="set-q3-text" class="w-full p-2.5 border border-gray-200 rounded-xl mb-3 font-semibold text-gray-700 focus:outline-none focus:border-pink-400 bg-white">
                     <label class="block text-[10px] text-green-600 mb-1">To'g'ri javob (Bu chiptadagi seans bo'ladi):</label>
-                    <input type="text" id="set-q3-correct" class="w-full p-2 border border-green-200 rounded mb-2 text-green-700">
-                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob (Qochadigan):</label>
-                    <input type="text" id="set-q3-wrong" class="w-full p-2 border border-rose-200 rounded">
+                    <input type="text" id="set-q3-correct" class="w-full p-2.5 border border-green-200 rounded-xl mb-3 text-green-700 font-semibold focus:outline-none focus:border-green-400 bg-white">
+                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob 1:</label>
+                    <input type="text" id="set-q3-wrong1" class="w-full p-2.5 border border-rose-200 rounded-xl mb-3 focus:outline-none focus:border-rose-400 bg-white font-semibold">
+                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob 2:</label>
+                    <input type="text" id="set-q3-wrong2" class="w-full p-2.5 border border-rose-200 rounded-xl focus:outline-none focus:border-rose-400 bg-white font-semibold">
                 </div>
 
                 <!-- Savol 4 -->
-                <div class="bg-pink-50/50 p-3 rounded-xl border border-pink-100">
-                    <p class="font-bold text-pink-600 mb-2">4-Savol (Taklif / Oqshom):</p>
+                <div class="bg-pink-50/50 p-4 rounded-2xl border border-pink-100">
+                    <p class="font-bold text-pink-600 mb-2 text-sm">4-Savol (Yakuniy rozilik savoli):</p>
                     <label class="block text-[10px] text-gray-500 mb-1">Savol matni:</label>
-                    <input type="text" id="set-q4-text" class="w-full p-2 border border-gray-200 rounded mb-2 font-bold text-gray-700">
+                    <input type="text" id="set-q4-text" class="w-full p-2.5 border border-gray-200 rounded-xl mb-3 font-semibold text-gray-700 focus:outline-none focus:border-pink-400 bg-white">
                     <label class="block text-[10px] text-green-600 mb-1">To'g'ri javob:</label>
-                    <input type="text" id="set-q4-correct" class="w-full p-2 border border-green-200 rounded mb-2 text-green-700">
-                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob (Qochadigan):</label>
-                    <input type="text" id="set-q4-wrong" class="w-full p-2 border border-rose-200 rounded">
+                    <input type="text" id="set-q4-correct" class="w-full p-2.5 border border-green-200 rounded-xl mb-3 text-green-700 font-semibold focus:outline-none focus:border-green-400 bg-white">
+                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob 1:</label>
+                    <input type="text" id="set-q4-wrong1" class="w-full p-2.5 border border-rose-200 rounded-xl mb-3 focus:outline-none focus:border-rose-400 bg-white font-semibold">
+                    <label class="block text-[10px] text-rose-500 mb-1">Noto'g'ri javob 2:</label>
+                    <input type="text" id="set-q4-wrong2" class="w-full p-2.5 border border-rose-200 rounded-xl focus:outline-none focus:border-rose-400 bg-white font-semibold">
                 </div>
+
             </div>
 
-            <!-- Saqlash va yangilash tugmasi -->
-            <button onclick="saveCustomQuestions()" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-xl text-xs transition-all flex items-center justify-center space-x-2">
-                <i class="fa-solid fa-floppy-disk"></i>
-                <span>Sozlamalarni saqlash va yangilash</span>
-            </button>
+            <!-- Modal Footer (Saqlash tugmasi) -->
+            <div class="pt-4 border-t border-pink-100 mt-4 flex-shrink-0">
+                <button onclick="saveCustomQuestions()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3.5 px-4 rounded-2xl text-sm transition-all flex items-center justify-center space-x-2 shadow-lg shadow-pink-100 active:scale-95">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span>O'zgarishlarni saqlash</span>
+                </button>
+            </div>
+
         </div>
     </div>
 
-    <!-- Web Audio API (Chiroyli o'yin effektlari va to'g'ri/noto'g'ri javoblar uchun) -->
+    <!-- Web Audio API (Tugma bosish va g'alaba tovush effektlari uchun - Hech qanday MP3 talab qilmaydi) -->
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -355,7 +331,7 @@
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); 
                 osc.frequency.exponentialRampToValueAtTime(783.99, audioCtx.currentTime + 0.15); 
-                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
                 osc.start();
                 osc.stop(audioCtx.currentTime + 0.3);
@@ -371,7 +347,7 @@
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(800, audioCtx.currentTime);
                 osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.4);
-                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
                 osc.start();
                 osc.stop(audioCtx.currentTime + 0.4);
@@ -385,7 +361,7 @@
                     g.connect(audioCtx.destination);
                     o.type = 'sine';
                     o.frequency.setValueAtTime(freq, now + idx * 0.08);
-                    g.gain.setValueAtTime(0.06, now + idx * 0.08);
+                    g.gain.setValueAtTime(0.05, now + idx * 0.08);
                     g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.5);
                     o.start(now + idx * 0.08);
                     o.stop(now + idx * 0.08 + 0.5);
@@ -414,15 +390,14 @@
         setInterval(createHeart, 450);
     </script>
 
-    <!-- Dastur va Kviz Amallari Logikasi -->
+    <!-- Kviz Logikasi -->
     <script>
         let girlName = "Sarvinoz";
         let boyName = "Akmal";
         let currentStepIndex = 0;
         let lastDodgeTime = 0;
-        let isMusicPlaying = false;
 
-        // Standart kviz savollari va variantlari
+        // Standart kviz savollari va 3 talik variantlari (1 to'g'ri, 2 noto'g'ri)
         let quizData = [
             {
                 question: "Chorshanba kuni vaqting bormi?",
@@ -452,7 +427,8 @@
                 question: "Shu oqshomni men bilan o'tkazasanmi?",
                 options: [
                     { text: "Ha, albatta ❤️", correct: true },
-                    { text: "O'ylab ko'rishim kerak 🧐", correct: false }
+                    { text: "O'ylab ko'rishim kerak 🧐", correct: false },
+                    { text: "Yo'q, vaqtim yo'q 🥱", correct: false }
                 ]
             }
         ];
@@ -468,155 +444,85 @@
             "Baribir barmoq yetmaydi 😜"
         ];
 
-        // Qurilmaga ilk teginish bilan audio elementini "tayyor" holatga keltiramiz
-        const userGestureEvents = ['touchstart', 'click', 'keydown'];
-        userGestureEvents.forEach(eventName => {
-            document.body.addEventListener(eventName, wakeupAudio, { passive: true });
-        });
-
-        function wakeupAudio() {
-            const audio = document.getElementById('bg-music');
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            
-            // Majburiy ravishda pleyerni sinab ko'rish
-            audio.play().then(() => {
-                audio.pause();
-                console.log("Audio drayver uyg'otildi!");
-            }).catch(err => {
-                console.log("Audio uyg'otish cheklovi:", err);
-            });
-
-            userGestureEvents.forEach(eventName => {
-                document.body.removeEventListener(eventName, wakeupAudio);
-            });
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
             initSettingsForm();
         });
 
+        // Sozlamalar oynasida joriy qiymatlarni (3 talik variantlar bilan) to'ldirish
         function initSettingsForm() {
-            // Musiqa maydonini default qiymat ("musiqa.mp3") bilan to'ldiramiz
-            const firstSource = document.getElementById('bg-music').getElementsByTagName('source')[0];
-            document.getElementById('set-music-url').value = firstSource ? firstSource.getAttribute('src') : "musiqa.mp3";
-
             document.getElementById('set-q1-text').value = quizData[0].question;
             document.getElementById('set-q1-correct').value = quizData[0].options[0].text;
-            document.getElementById('set-q1-wrong').value = quizData[0].options[1].text;
+            document.getElementById('set-q1-wrong1').value = quizData[0].options[1].text;
+            document.getElementById('set-q1-wrong2').value = quizData[0].options[2].text;
 
             document.getElementById('set-q2-text').value = quizData[1].question;
             document.getElementById('set-q2-correct').value = quizData[1].options[0].text;
-            document.getElementById('set-q2-wrong').value = quizData[1].options[1].text;
+            document.getElementById('set-q2-wrong1').value = quizData[1].options[1].text;
+            document.getElementById('set-q2-wrong2').value = quizData[1].options[2].text;
 
             document.getElementById('set-q3-text').value = quizData[2].question;
             document.getElementById('set-q3-correct').value = quizData[2].options[0].text;
-            document.getElementById('set-q3-wrong').value = quizData[2].options[1].text;
+            document.getElementById('set-q3-wrong1').value = quizData[2].options[1].text;
+            document.getElementById('set-q3-wrong2').value = quizData[2].options[2].text;
 
             document.getElementById('set-q4-text').value = quizData[3].question;
             document.getElementById('set-q4-correct').value = quizData[3].options[0].text;
-            document.getElementById('set-q4-wrong').value = quizData[3].options[1].text;
+            document.getElementById('set-q4-wrong1').value = quizData[3].options[1].text;
+            document.getElementById('set-q4-wrong2').value = quizData[3].options[2].text;
         }
 
-        // Sozlamalarni saqlash va yangi qiymatlarni qo'llash
-        function saveCustomQuestions() {
-            const newMusicUrl = document.getElementById('set-music-url').value.trim();
-            const audio = document.getElementById('bg-music');
-            
-            if (newMusicUrl) {
-                let sources = audio.getElementsByTagName('source');
-                if (sources.length > 0) {
-                    sources[0].setAttribute('src', newMusicUrl);
-                } else {
-                    const newSource = document.createElement('source');
-                    newSource.setAttribute('src', newMusicUrl);
-                    newSource.setAttribute('type', 'audio/mpeg');
-                    audio.insertBefore(newSource, audio.firstChild);
-                }
-                audio.load();
-                if (isMusicPlaying) {
-                    isMusicPlaying = false;
-                    toggleMusic();
-                }
+        // Sozlamalar modalini ochish / yopish
+        function toggleSettingsModal(show) {
+            const modal = document.getElementById('settings-modal');
+            if (show) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.firstElementChild.classList.remove('scale-95');
+                    modal.firstElementChild.classList.add('scale-100');
+                }, 10);
+            } else {
+                modal.firstElementChild.classList.remove('scale-100');
+                modal.firstElementChild.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 200);
             }
+        }
 
+        // Tahrirlangan 3 talik savollarni saqlash va tizimni yangilash
+        function saveCustomQuestions() {
             quizData[0].question = document.getElementById('set-q1-text').value.trim() || quizData[0].question;
             quizData[0].options[0].text = document.getElementById('set-q1-correct').value.trim() || quizData[0].options[0].text;
-            quizData[0].options[1].text = document.getElementById('set-q1-wrong').value.trim() || quizData[0].options[1].text;
+            quizData[0].options[1].text = document.getElementById('set-q1-wrong1').value.trim() || quizData[0].options[1].text;
+            quizData[0].options[2].text = document.getElementById('set-q1-wrong2').value.trim() || quizData[0].options[2].text;
 
             quizData[1].question = document.getElementById('set-q2-text').value.trim() || quizData[1].question;
             quizData[1].options[0].text = document.getElementById('set-q2-correct').value.trim() || quizData[1].options[0].text;
-            quizData[1].options[1].text = document.getElementById('set-q2-wrong').value.trim() || quizData[1].options[1].text;
+            quizData[1].options[1].text = document.getElementById('set-q2-wrong1').value.trim() || quizData[1].options[1].text;
+            quizData[1].options[2].text = document.getElementById('set-q2-wrong2').value.trim() || quizData[1].options[2].text;
 
             quizData[2].question = document.getElementById('set-q3-text').value.trim() || quizData[2].question;
             quizData[2].options[0].text = document.getElementById('set-q3-correct').value.trim() || quizData[2].options[0].text;
-            quizData[2].options[1].text = document.getElementById('set-q3-wrong').value.trim() || quizData[2].options[1].text;
+            quizData[2].options[1].text = document.getElementById('set-q3-wrong1').value.trim() || quizData[2].options[1].text;
+            quizData[2].options[2].text = document.getElementById('set-q3-wrong2').value.trim() || quizData[2].options[2].text;
 
             quizData[3].question = document.getElementById('set-q4-text').value.trim() || quizData[3].question;
             quizData[3].options[0].text = document.getElementById('set-q4-correct').value.trim() || quizData[3].options[0].text;
-            quizData[3].options[1].text = document.getElementById('set-q4-wrong').value.trim() || quizData[3].options[1].text;
+            quizData[3].options[1].text = document.getElementById('set-q4-wrong1').value.trim() || quizData[3].options[1].text;
+            quizData[3].options[2].text = document.getElementById('set-q4-wrong2').value.trim() || quizData[3].options[2].text;
 
-            // Chipta tafsilotlarini tahrirlangan qiymatlar bilan sinxronlash
+            // Chipta tafsilotlarini yangi tahrirlangan qiymatlar bilan yangilash
             document.getElementById('ticket-seans').innerText = `${quizData[2].options[0].text} 🧸`;
             
             const opt1_raw = quizData[0].options[0].text;
             const cleanDate = opt1_raw.includes("Ha") ? "Chorshanba, 24-iyun" : opt1_raw;
             document.getElementById('ticket-date').innerText = cleanDate;
 
-            toggleSettings();
+            toggleSettingsModal(false);
             restartQuiz();
             playSound('success');
         }
 
-        function toggleSettings() {
-            const panel = document.getElementById('settings-panel');
-            if (panel.classList.contains('hidden')) {
-                panel.classList.remove('hidden');
-                panel.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                panel.classList.add('hidden');
-            }
-        }
-
-        // Musiqa yoqish/o'chirish logikasi
-        function toggleMusic() {
-            const audio = document.getElementById('bg-music');
-            const icon = document.getElementById('music-icon');
-            const text = document.getElementById('music-text');
-            const btn = document.getElementById('music-toggle-btn');
-
-            if (isMusicPlaying) {
-                audio.pause();
-                isMusicPlaying = false;
-                icon.classList.remove('spin-slow', 'text-pink-500');
-                icon.classList.add('text-gray-400');
-                text.innerText = "Musiqa o'chiq";
-                btn.classList.remove('border-pink-300');
-            } else {
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
-                
-                audio.volume = 0.85;
-                const playPromise = audio.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isMusicPlaying = true;
-                        icon.classList.add('spin-slow', 'text-pink-500');
-                        icon.classList.remove('text-gray-400');
-                        text.innerText = "Musiqa chalinmoqda";
-                        btn.classList.add('border-pink-300');
-                    }).catch(err => {
-                        console.log("Brauzer avtomatik musiqani rad etdi:", err);
-                        text.innerText = "Ovozni yoqing";
-                    });
-                }
-            }
-        }
-
-        // Ismlarni tasdiqlash va dasturni uchrashuv interfeysi bilan boshlash
         function saveNameAndStart() {
             const girlInput = document.getElementById('user-name-field').value.trim();
             const boyInput = document.getElementById('boy-name-field').value.trim();
@@ -645,18 +551,17 @@
             girlName = girlInput;
             boyName = boyInput;
 
-            // Matnlarni dinamik va katta ismlar bilan yangilash
-            document.getElementById('intro-greeting').innerHTML = `sen uchun, <br><span class="text-4xl md:text-5xl font-black text-rose-600 block mt-2 tracking-wide drop-shadow-sm animate-pulse uppercase">${girlName}</span> 💌`;
+            // Ismlarni matnlarga juda katta ko'rinishda integratsiya qilish
+            document.getElementById('intro-greeting').innerHTML = `sen uchun, <br><span class="text-4.5xl md:text-5xl font-extrabold text-rose-600 block mt-2 tracking-wide drop-shadow-sm animate-pulse uppercase">${girlName}</span> 💌`;
             document.getElementById('intro-description').innerText = `Bir nechta savolga javob ber... lekin ehtiyot bo'l — ${boyName}ning ba'zi tugmalari juda injiq va qaysar 🫣`;
             
             document.getElementById('ticket-user-name').innerText = `${girlName} ✨`;
             document.getElementById('success-title').innerText = `Bu — uchrashuv, ${girlName}!`;
             document.getElementById('sender-signature').innerText = `Seni taklif qilyapti: ering ${boyName} ❤️`;
 
-            // Agar musiqa hali chalinmagan bo'lsa, uni yoqish
-            if (!isMusicPlaying) {
-                toggleMusic();
-            }
+            // Boshlash tugmasi bosilganda sozlamalar tishli g'ildirakchasini g'oyib qilish
+            const settingsTrigger = document.getElementById('settings-trigger-container');
+            if (settingsTrigger) settingsTrigger.classList.add('hidden');
 
             showScreen('screen-intro');
             playSound('success');
@@ -677,7 +582,7 @@
             document.getElementById(screenId).classList.remove('hidden');
         }
 
-        // Navbatdagi savolni yuklash
+        // Savolni yuklash (3 ta variant bilan)
         function loadQuestion() {
             const currentData = quizData[currentStepIndex];
             
@@ -689,7 +594,7 @@
             const optionsContainer = document.getElementById('quiz-options');
             optionsContainer.innerHTML = ''; 
 
-            // 1. TO'G'RI javob variantini yaratish
+            // TO'G'RI javob variantini yaratish
             const correctOption = currentData.options.find(opt => opt.correct);
             const correctBtn = document.createElement('button');
             correctBtn.id = "correct-btn";
@@ -712,7 +617,7 @@
 
             optionsContainer.appendChild(correctBtn);
 
-            // 2. NOTO'G'RI variantlarni (qochadigan) yaratish va absolute joylashtirish
+            // NOTO'G'RI variantlarni yaratish va absolute qilish (Ziddiyatli z-index va joylashuv bilan)
             const incorrectOptions = currentData.options.filter(opt => !opt.correct);
             
             incorrectOptions.forEach((opt, index) => {
@@ -722,7 +627,7 @@
                 
                 wrongBtn.dataset.dodges = "0";
 
-                // Boshlang'ich optimal joylashuv (To'g'ri tugmaning pastida ketma-ket)
+                // Har bir noto'g'ri javobni o'zining boshlang'ich balandligi bilan ketma-ket joylashtiramiz
                 const initialTop = 72 + (index * 64);
                 wrongBtn.style.top = `${initialTop}px`;
                 wrongBtn.style.left = "0px";
@@ -739,7 +644,6 @@
                     wrongBtn.dataset.dodges = dodges;
 
                     if (dodges >= 3) {
-                        // 3-urinishdan so'ng tugma sehrli ravishda yo'qoladi!
                         playSound('magic-disappear');
                         wrongBtn.style.transform = "scale(0)";
                         wrongBtn.style.opacity = "0";
@@ -749,13 +653,11 @@
                         toast.innerText = "Bu tugma charchadi va o'zini o'zi yo'q qildi! 🪄";
                         toast.style.opacity = 1;
                     } else {
-                        // Aks holda qochish
                         playSound('dodge');
                         dodgeButton(wrongBtn);
                     }
                 };
 
-                // Sensorli ekranlar va sichqoncha uchun to'liq ulanish
                 wrongBtn.addEventListener('mouseover', triggerDodge);
                 wrongBtn.addEventListener('touchstart', triggerDodge);
                 wrongBtn.addEventListener('click', triggerDodge);
@@ -795,7 +697,6 @@
                 randomLeft = Math.random() * maxLeft;
                 randomTop = Math.random() * maxTop;
                 
-                // To'g'ri tugmaga to'qnash kelmasligini tekshirish
                 const collidesX = (randomLeft + btnW + padding > correctRelX) && (randomLeft - padding < correctRelX + correctW);
                 const collidesY = (randomTop + btnH + padding > correctRelY) && (randomTop - padding < correctRelY + correctH);
                 
@@ -805,7 +706,6 @@
                 attempts++;
             }
             
-            // Bo'sh joy topilmasa, qarama-qarshi tomonga joylash
             if (overlaps) {
                 if (correctRelY > containerRect.height / 2) {
                     randomTop = 8;
@@ -818,7 +718,6 @@
             btn.style.left = `${randomLeft}px`;
             btn.style.top = `${randomTop}px`;
 
-            // Toast reaktsiyasini chiqarish
             const toast = document.getElementById('reaction-toast');
             const randomText = funnyToasts[Math.floor(Math.random() * funnyToasts.length)];
             
@@ -827,10 +726,14 @@
             toast.style.opacity = 1;
         }
 
-        // Dasturni to'liq qayta yuklash
+        // Qayta boshlash
         function restartQuiz() {
             document.getElementById('user-name-field').value = '';
             document.getElementById('boy-name-field').value = '';
+            
+            const settingsTrigger = document.getElementById('settings-trigger-container');
+            if (settingsTrigger) settingsTrigger.classList.remove('hidden');
+
             showScreen('screen-name-input');
         }
     </script>
