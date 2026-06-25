@@ -8,8 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome piktogrammalar uchun -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Caveat, Comfortaa va Manrope (Video bilan bir xil) -->
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Comfortaa:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts (Video va MHT andozasi bilan bir xil) -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Comfortaa:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --cream: #FFF6EF;
@@ -28,6 +28,7 @@
             background: linear-gradient(160deg, var(--cream) 0%, var(--peach) 45%, var(--blush) 100%);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
         .caveat-font {
@@ -38,7 +39,7 @@
             font-family: 'Comfortaa', cursive;
         }
 
-        /* Suzuvchi emojilar foni */
+        /* Suzuvchi romantik emojilar foni */
         .floaty {
             position: absolute;
             bottom: -50px;
@@ -70,7 +71,7 @@
             transition: all 0.4s ease-in-out;
         }
 
-        /* Qochadigan tugmalarning silliq harakati */
+        /* Qochadigan tugmalarning silliq va o'ynoqi harakati */
         .stubborn-btn {
             transition: transform 0.2s cubic-bezier(0.2, 1.4, 0.4, 1), top 0.25s ease-out, left 0.25s ease-out, opacity 0.3s ease, scale 0.3s ease;
         }
@@ -95,6 +96,31 @@
         .ticket-cut::after {
             right: -13px;
             transform: translateY(-50%);
+        }
+
+        /* Toast bildirishnomasi */
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: 54px;
+            transform: translateX(-50%) translateY(20px);
+            z-index: 40;
+            background: var(--ink);
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 11px 18px;
+            border-radius: 30px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 30px;
+            white-space: nowrap;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px);
         }
 
         /* Confetti animatsiyasi */
@@ -142,7 +168,7 @@
         setInterval(createFloaty, 600);
     </script>
 
-    <!-- @yovvoyiroq Telegram Kanali (Kichik va o'ng burchakda) -->
+    <!-- Telegram Kanal havolasi -->
     <div class="absolute top-4 right-4 z-40">
         <a href="https://t.me/yovvoyiroq" target="_blank" rel="noopener noreferrer" 
            class="inline-flex items-center space-x-1.5 bg-white/90 backdrop-blur-sm border border-pink-200 px-3.5 py-2 rounded-full shadow-md text-pink-600 hover:text-pink-700 hover:bg-white transition-all transform hover:scale-105 active:scale-95 text-xs font-semibold tracking-wide">
@@ -152,15 +178,15 @@
         </a>
     </div>
 
-    <!-- Markaziy qism (Asosiy Card) -->
+    <!-- Asosiy Card Konteyner -->
     <div class="w-full max-w-md bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-8 border border-white/50 z-10 transition-all duration-500 my-auto">
         
-        <!-- Yuqoridagi Chiroyli Bezak -->
+        <!-- Yuqoridagi Bezak -->
         <div class="flex justify-center mb-6">
             <div class="relative">
                 <span class="absolute -top-1 -right-1 text-yellow-400 text-xl animate-bounce">✨</span>
                 <span class="absolute -bottom-1 -left-1 text-pink-500 text-lg animate-pulse">💖</span>
-                <div class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-300 shadow-inner">
+                <div class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-300 shadow-inner animate-pulse">
                     <i class="fa-solid fa-envelope-open-text text-pink-500 text-2xl"></i>
                 </div>
             </div>
@@ -216,16 +242,16 @@
                 Kichkina kviz — <br><span class="text-pink-600">katta sir bilan</span>
             </h2>
             <p id="intro-description" class="text-gray-600 text-sm mb-8 leading-relaxed px-2 font-light">
-                Bir nechta savolga javob ber... lekin ehtiyot bo'l — Akmalning ba'zi tugmalari juda injiq va qaysar 🫣
+                Bir nechta savolga javob ber... lekin ehtiyot bo'l — Akmalning ba'zi tugmalari yaqinlashganda qochib ketadi 🫣
             </p>
             <button onclick="startQuiz()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-pink-200 transition-all transform active:scale-95 text-md tracking-wider">
                 Boshladik 🚀
             </button>
         </div>
 
-        <!-- 3. SAVOLLAR EKRANI (Sozlamalar butunlay yo'qoladi) -->
+        <!-- 3. SAVOLLAR EKRANI (Boshlanganda sozlamalar tugmasi butunlay yo'qoladi) -->
         <div id="screen-quiz" class="hidden page-transition">
-            <!-- Progress bar dots (Yurakchalardan iborat) -->
+            <!-- Progress bar dots (Yurakchalardan iborat progress) -->
             <div class="flex gap-2 justify-center mb-6" id="progress-dots">
                 <span class="dot text-xl text-pink-300 opacity-30"><i class="fa-solid fa-heart"></i></span>
                 <span class="dot text-xl text-pink-300 opacity-30"><i class="fa-solid fa-heart"></i></span>
@@ -241,11 +267,6 @@
             <!-- Variantlar joylashadigan hudud -->
             <div id="quiz-options" class="relative flex flex-col space-y-4 min-h-[290px] justify-start pt-2">
                 <!-- Dinamik ravishda variantlar joylashadi -->
-            </div>
-
-            <!-- Qochuvchi tugma reaktsiyalari -->
-            <div id="reaction-toast" class="opacity-0 transition-opacity duration-300 mt-6 text-center text-rose-500 font-bold text-sm min-h-[24px]">
-                Injiq tugma! 🤪
             </div>
         </div>
 
@@ -312,22 +333,20 @@
 
     </div>
 
-    <!-- ⚙️ SOZLAMALAR FULL-SCREEN OVERLAY MODAL (Barcha 4 ta savol to'liq va keng ko'rinadi) -->
+    <!-- ⚙️ SOZLAMALAR FULL-SCREEN OVERLAY MODAL -->
     <div id="settings-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl p-6 flex flex-col max-h-[85vh] transition-all transform scale-95 duration-300">
             
-            <!-- Modal Header -->
+            <!-- Modal Sarlavhasi -->
             <div class="flex justify-between items-center border-b border-pink-100 pb-3 mb-4 flex-shrink-0">
                 <h3 class="font-bold text-gray-800 text-lg flex items-center space-x-2">
                     <i class="fa-solid fa-sliders text-pink-500"></i>
                     <span>Savollarni tahrirlash</span>
                 </h3>
-                <button onclick="toggleSettingsModal(false)" class="text-gray-400 hover:text-rose-500 transition-colors">
-                    <i class="fa-solid fa-circle-xmark text-2xl"></i>
-                </button>
+                <button onclick="toggleSettingsModal(false)" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-circle-xmark text-2xl"></i></button>
             </div>
 
-            <!-- Scrollable Content (4 ta savol to'liq joylashgan - 1 ta to'g'ri, 2 ta noto'g'ri variantlar uchun) -->
+            <!-- Tahrirlash maydonlari -->
             <div class="overflow-y-auto pr-1 space-y-5 flex-grow text-xs text-left">
                 
                 <!-- Savol 1 -->
@@ -384,9 +403,9 @@
 
             </div>
 
-            <!-- Modal Footer (Saqlash tugmasi) -->
+            <!-- Modal Saqlash tugmasi -->
             <div class="pt-4 border-t border-pink-100 mt-4 flex-shrink-0 font-sans">
-                <button onclick="saveCustomQuestions()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3.5 px-4 rounded-2xl text-xs transition-all flex items-center justify-center space-x-2 shadow-lg shadow-pink-100 active:scale-95">
+                <button onclick="saveCustomQuestions()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3.5 px-4 rounded-2xl text-sm transition-all flex items-center justify-center space-x-2 shadow-lg shadow-pink-100 active:scale-95">
                     <i class="fa-solid fa-floppy-disk"></i>
                     <span>O'zgarishlarni saqlash</span>
                 </button>
@@ -395,7 +414,10 @@
         </div>
     </div>
 
-    <!-- Web Audio API (Tugma bosish va g'alaba tovush effektlari uchun - Hech qanday MP3 talab qilmaydi) -->
+    <!-- Toast Bildirishnoma (Pastda chiqadigan, "Boshqasini bos 💖" va boshqa erkalovchi so'zlar) -->
+    <div id="toast"></div>
+
+    <!-- Web Audio API (Chertish va uchrashuv tugaganda g'alaba tovushlari) -->
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -452,7 +474,7 @@
             }
         }
 
-        // Chiroyli vizual confetti yomg'iri
+        // Chiroyli vizual confetti yomg'iri (Taklif tasdiqlanganda)
         function launchConfetti() {
             const colors = ['#E25C7C', '#C9305C', '#F2B66B', '#FFD2D7', '#4A2C39'];
             for (let i = 0; i < 60; i++) {
@@ -461,7 +483,7 @@
                     heart.className = 'fixed text-xl pointer-events-none z-50 animate-bounce select-none';
                     heart.style.left = Math.random() * 100 + 'vw';
                     heart.style.top = '-20px';
-                    heart.style.color = colors[Math.floor(Math.random() * chordsLength())];
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
                     heart.innerHTML = ['💖', '❤️', '✨', '🎈', '🎉'][Math.floor(Math.random() * 5)];
                     
                     const duration = Math.random() * 2 + 1.5;
@@ -476,7 +498,6 @@
                 }, i * 35);
             }
         }
-        function chordsLength() { return 5; }
     </script>
 
     <!-- Kviz Logikasi -->
@@ -486,76 +507,56 @@
         let currentStepIndex = 0;
         let lastDodgeTime = 0;
 
-        // Standart kviz savollari va 3 talik variantlari (1 to'g'ri, 2 noto'g'ri)
-        let quizData = [
-            {
-                question: "Chorshanba kuni vaqting bormi?",
-                options: [
-                    { text: "Ha, albatta bor 🦄", correct: true },
-                    { text: "Band bo'lishim mumkin 🥺", correct: false },
-                    { text: "Hmm, bilmadim 🤫", correct: false }
-                ]
-            },
-            {
-                question: "Birga qayerga boramiz?",
-                options: [
-                    { text: "Magic City 🏰", correct: true },
-                    { text: "Yana ishga 💼", correct: false },
-                    { text: "Hech qayerga, dangasalik 🛌", correct: false }
-                ]
-            },
-            {
-                question: "Nima ko'ramiz?",
-                options: [
-                    { text: "O'yinchoqlar tarixi 5 🧸", correct: true },
-                    { text: "Qo'rqinchli film 🎬", correct: false },
-                    { text: "Soliqlar haqida film 📊", correct: false }
-                ]
-            },
-            {
-                question: "Shu oqshomni men bilan o'tkazasanmi?",
-                options: [
-                    { text: "Ha, albatta ❤️", correct: true },
-                    { text: "O'ylab ko'rishim kerak 🧐", correct: false },
-                    { text: "Yo'q, vaqtim yo'q 🥱", correct: false }
-                ]
-            }
-        ];
-
         // Dinamik yaqinlashayotgan chorshanba kunini hisoblash algoritmi
         function getUpcomingWednesdayDate() {
             const today = new Date();
-            const dayOfWeek = today.getDay(); // 0: Yak, 1: Dush, ... 3: Chor
+            const dayOfWeek = today.getDay(); // 0: Yak, 1: Dush, 2: Sesh, 3: Chor, 4: Pay, 5: Jum, 6: Shan
             let daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
-            if (daysUntilWednesday === 0) daysUntilWednesday = 7; // Agar bugun chorshanba bo'lsa kelasi hafta chorshanbasini beradi
+            
+            // Agar bugun Chorshanba bo'lsa, kelasi haftadagi Chorshanbani ko'rsatamiz
+            if (daysUntilWednesday === 0) {
+                daysUntilWednesday = 7;
+            }
             
             const targetDate = new Date(today);
             targetDate.setDate(today.getDate() + daysUntilWednesday);
             
             const months = [
                 "yanvar", "fevral", "mart", "aprel", "may", "iyun",
-                "iyul", "avgust", "sentabr", "oktabr", "noyabr", "decabr"
+                "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"
             ];
             
             return `Chorshanba, ${targetDate.getDate()}-${months[targetDate.getMonth()]}`;
         }
 
+        // Yangi talab qilingan erkalovchi va qiziqarli toast xabarlari (Faqat siz xohlagan so'zlar)
         const funnyToasts = [
+            "Boshqasini bos 💖",
+            "Rozi bo'laver endi 😘",
+            "Xo'p deyaqol 🙈",
             "Yo'q endi 🙅‍♀️",
             "Jiddiy-mi? 🤨",
-            "Yo'q-yo'q 🚫",
-            "Bugun bo'lmaydi 😅",
-            "Bu tugma juda uyatchan 🙈",
+            "Baribir foydasi yo'q 😜",
             "Faqat to'g'ri javob! ❤️",
-            "Osonlikcha qutulolmaysiz! 🤪",
-            "Baribir barmoq yetmaydi 😜"
+            "Yo'q-yo'q 🚫"
         ];
+
+        // Toast bildirishnomasi ko'rsatish
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 1800);
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             initSettingsForm();
         });
 
-        // Sozlamalar oynasida joriy qiymatlarni to'ldirish
+        // Sozlamalar oynasida joriy qiymatlarni (3 talik variantlar bilan) to'ldirish
         function initSettingsForm() {
             document.getElementById('set-q1-text').value = quizData[0].question;
             document.getElementById('set-q1-correct').value = quizData[0].options[0].text;
@@ -618,14 +619,6 @@
             quizData[3].options[1].text = document.getElementById('set-q4-wrong1').value.trim() || quizData[3].options[1].text;
             quizData[3].options[2].text = document.getElementById('set-q4-wrong2').value.trim() || quizData[3].options[2].text;
 
-            // Chipta tafsilotlarini yangi tahrirlangan qiymatlar bilan yangilash
-            document.getElementById('ticket-seans').innerText = `${quizData[2].options[0].text} 🧸`;
-            
-            // Agar birinchi savol "Ha" javobida saqlansa - dinamik hisoblangan yaqin Chorshanba kunini qo'yamiz
-            const opt1_raw = quizData[0].options[0].text;
-            const cleanDate = opt1_raw.includes("Ha") ? getUpcomingWednesdayDate() : opt1_raw;
-            document.getElementById('ticket-date').innerText = cleanDate;
-
             toggleSettingsModal(false);
             restartQuiz();
             playSound('success');
@@ -659,14 +652,10 @@
             girlName = girlInput;
             boyName = boyInput;
 
-            // Ismlarni matnlarga dinamik va juda katta ko'rinishda joylashtirish
+            // Ismlarni matnlarga dinamik va juda katta ko'rinishda integratsiya qilish
             document.getElementById('intro-greeting').innerHTML = `sen uchun, <br><span class="text-4.5xl md:text-5xl font-extrabold text-rose-600 block mt-2 tracking-wide drop-shadow-sm animate-pulse uppercase caveat-font">${girlName}</span> 💌`;
-            document.getElementById('intro-description').innerText = `Bir nechta savolga javob ber... lekin ehtiyot bo'l — ${boyName}ning ba'zi tugmalari juda injiq va qaysar 🫣`;
+            document.getElementById('intro-description').innerText = `Bir nechta savolga javob ber... lekin ehtiyot bo'l — ${boyName}ning ba'zi tugmalari yaqinlashganda qochib ketadi 🫣`;
             
-            document.getElementById('ticket-user-name').innerText = `${girlName} ✨`;
-            document.getElementById('success-title').innerText = `Bu — uchrashuv, ${girlName}!`;
-            document.getElementById('sender-signature').innerText = `Seni taklif qilyapti: ering ${boyName} ❤️`;
-
             // Boshlash tugmasi bosilganda sozlamalar tishli g'ildirakchasini g'oyib qilish
             const settingsTrigger = document.getElementById('settings-trigger-container');
             if (settingsTrigger) settingsTrigger.classList.add('hidden');
@@ -688,6 +677,32 @@
             document.getElementById('screen-success').classList.add('hidden');
             
             document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        // Kviz muvaffaqiyatli yakunlanganda barcha ma'lumotlarni chiptaga xatosiz va DINAMIK yuklash
+        function showSuccessScreen() {
+            // 1. Ism
+            document.getElementById('ticket-user-name').innerText = `${girlName} ✨`;
+            
+            // 2. Seans (3-savolning to'g'ri javobi)
+            const correctSeans = quizData[2].options.find(opt => opt.correct).text;
+            document.getElementById('ticket-seans').innerText = correctSeans;
+            
+            // 3. Sana (1-savolning to'g'ri javobi)
+            const correctDateOpt = quizData[0].options.find(opt => opt.correct).text;
+            // Agar birinchi savolning to'g'ri javobi standart "Ha..." matni bo'lsa yoki o'zgartirilmagan bo'lsa - avtomatik chorshanba sanasini hisoblab yozadi
+            const cleanDate = (correctDateOpt.includes("Ha") || correctDateOpt.toLowerCase().includes("ha")) 
+                ? getUpcomingWednesdayDate() 
+                : correctDateOpt;
+            document.getElementById('ticket-date').innerText = cleanDate;
+
+            // 4. Imzo
+            document.getElementById('sender-signature').innerText = `Seni taklif qilyapti: ering ${boyName} ❤️`;
+            document.getElementById('success-title').innerText = `Bu — uchrashuv, ${girlName}!`;
+
+            playSound('final');
+            launchConfetti();
+            showScreen('screen-success');
         }
 
         // Savolni yuklash (3 ta variant bilan)
@@ -720,22 +735,19 @@
             
             correctBtn.addEventListener('click', () => {
                 playSound('success');
-                const toast = document.getElementById('reaction-toast');
-                toast.style.opacity = 0;
                 
                 currentStepIndex++;
                 if (currentStepIndex < quizData.length) {
                     loadQuestion();
                 } else {
-                    playSound('final');
-                    launchConfetti();
-                    showScreen('screen-success');
+                    // Kviz yakunlanganda barcha chipta ma'lumotlarini dinamik yangilovchi funksiyani chaqiramiz
+                    showSuccessScreen();
                 }
             });
 
             optionsContainer.appendChild(correctBtn);
 
-            // NOTO'G'RI variantlarni yaratish va absolute qilish (Ziddiyatli z-index va joylashuv bilan)
+            // NOTO'G'RI variantlarni yaratish va absolute qilish
             const incorrectOptions = currentData.options.filter(opt => !opt.correct);
             
             incorrectOptions.forEach((opt, index) => {
@@ -745,7 +757,6 @@
                 
                 wrongBtn.dataset.dodges = "0";
 
-                // Har bir noto'g'ri javobni o'zining boshlang'ich balandligi bilan ketma-ket joylashtiramiz
                 const initialTop = 76 + (index * 64);
                 wrongBtn.style.top = `${initialTop}px`;
                 wrongBtn.style.left = "0px";
@@ -767,9 +778,7 @@
                         wrongBtn.style.opacity = "0";
                         wrongBtn.style.pointerEvents = "none";
                         
-                        const toast = document.getElementById('reaction-toast');
-                        toast.innerText = "Bu tugma charchadi va o'zini o'zi yo'q qildi! 🪄";
-                        toast.style.opacity = 1;
+                        showToast("Bu tugma charchadi va o'zini o'zi yo'q qildi! 🪄");
                     } else {
                         playSound('dodge');
                         dodgeButton(wrongBtn);
@@ -836,12 +845,11 @@
             btn.style.left = `${randomLeft}px`;
             btn.style.top = `${randomTop}px`;
 
-            const toast = document.getElementById('reaction-toast');
+            // Videodagidek qochuvchi tugma bosilganda o'rtada va pastda chiroyli toast xabarlar chiqadi
             const randomText = funnyToasts[Math.floor(Math.random() * funnyToasts.length)];
-            
             let dodges = parseInt(btn.dataset.dodges || 0);
-            toast.innerText = `${randomText} (Urinish: ${dodges}/3) 😜`;
-            toast.style.opacity = 1;
+            
+            showToast(`${randomText} (Urinish: ${dodges}/3) 😜`);
         }
 
         // Qayta boshlash
