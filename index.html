@@ -2,48 +2,65 @@
 <html lang="uz" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maxsus uchrashuv taklifnomasi ✨</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sen uchun sovg'a 💌</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome piktogrammalar uchun -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Poppins va Playfair Display -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,500;1,700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Caveat, Comfortaa va Manrope (Video bilan bir xil) -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Comfortaa:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --cream: #FFF6EF;
+            --peach: #FFE3D2;
+            --blush: #FFD2D7;
+            --rose: #E25C7C;
+            --berry: #C9305C;
+            --gold: #F2B66B;
+            --ink: #4A2C39;
+            --soft: #8A6470;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffeef2 0%, #ffd1dc 100%);
+            font-family: 'Manrope', sans-serif;
+            color: var(--ink);
+            background: linear-gradient(160deg, var(--cream) 0%, var(--peach) 45%, var(--blush) 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        .romantic-title {
-            font-family: 'Playfair Display', serif;
+        .caveat-font {
+            font-family: 'Caveat', cursive;
         }
 
-        /* Suzuvchi romantik yurakchalar foni */
-        .heart {
+        .comfortaa-font {
+            font-family: 'Comfortaa', cursive;
+        }
+
+        /* Suzuvchi emojilar foni */
+        .floaty {
             position: absolute;
-            color: rgba(244, 63, 94, 0.22);
-            animation: float 6s linear infinite;
+            bottom: -50px;
+            opacity: 0.35;
+            animation: rise linear infinite;
             z-index: 0;
             pointer-events: none;
         }
 
-        @keyframes float {
+        @keyframes rise {
             0% {
-                transform: translateY(110vh) rotate(0deg) scale(0.6);
+                transform: translateY(0) rotate(0deg) scale(0.8);
                 opacity: 0;
             }
             10% {
-                opacity: 0.8;
+                opacity: 0.35;
             }
             90% {
-                opacity: 0.8;
+                opacity: 0.35;
             }
             100% {
-                transform: translateY(-10vh) rotate(360deg) scale(1.2);
+                transform: translateY(-115vh) rotate(360deg) scale(1.2);
                 opacity: 0;
             }
         }
@@ -53,13 +70,77 @@
             transition: all 0.4s ease-in-out;
         }
 
-        /* Qochadigan tugmalarning silliq va o'ynoqi harakati */
+        /* Qochadigan tugmalarning silliq harakati */
         .stubborn-btn {
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.25s ease-out, left 0.25s ease-out, opacity 0.3s ease, scale 0.3s ease;
+            transition: transform 0.2s cubic-bezier(0.2, 1.4, 0.4, 1), top 0.25s ease-out, left 0.25s ease-out, opacity 0.3s ease, scale 0.3s ease;
+        }
+
+        /* Dekorativ chipta kesmalari */
+        .ticket-cut::before, .ticket-cut::after {
+            content: "";
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: linear-gradient(160deg, var(--cream), var(--peach));
+            top: 50%;
+            z-index: 10;
+        }
+
+        .ticket-cut::before {
+            left: -13px;
+            transform: translateY(-50%);
+        }
+
+        .ticket-cut::after {
+            right: -13px;
+            transform: translateY(-50%);
+        }
+
+        /* Confetti animatsiyasi */
+        .confetti {
+            position: fixed;
+            z-index: 30;
+            pointer-events: none;
+            will-change: transform, opacity;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body class="relative flex flex-col items-center justify-center p-4 min-h-screen">
+
+    <!-- Suzuvchi romantik emojilar generatori -->
+    <div id="ambient" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+    <script>
+        const emojies = ['💕', '💖', '✨', '🌸', '🧸', '💌', '🍬'];
+        function createFloaty() {
+            const container = document.getElementById('ambient');
+            if (!container) return;
+            const floaty = document.createElement('div');
+            floaty.classList.add('floaty');
+            floaty.innerText = emojies[Math.floor(Math.random() * emojies.length)];
+            
+            floaty.style.left = Math.random() * 100 + 'vw';
+            floaty.style.fontSize = Math.random() * 14 + 14 + 'px';
+            const duration = Math.random() * 5 + 7; // 7s to 12s
+            floaty.style.animationDuration = duration + 's';
+            
+            container.appendChild(floaty);
+            setTimeout(() => { floaty.remove(); }, duration * 1000);
+        }
+        setInterval(createFloaty, 600);
+    </script>
 
     <!-- @yovvoyiroq Telegram Kanali (Kichik va o'ng burchakda) -->
     <div class="absolute top-4 right-4 z-40">
@@ -71,16 +152,16 @@
         </a>
     </div>
 
-    <!-- Asosiy Card Konteyner -->
-    <div class="w-full max-w-md bg-white/85 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-8 border border-white/60 z-10 transition-all duration-500 my-auto">
+    <!-- Markaziy qism (Asosiy Card) -->
+    <div class="w-full max-w-md bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-8 border border-white/50 z-10 transition-all duration-500 my-auto">
         
-        <!-- Yuqori bezak belgisi -->
-        <div class="flex justify-center mb-5">
+        <!-- Yuqoridagi Chiroyli Bezak -->
+        <div class="flex justify-center mb-6">
             <div class="relative">
                 <span class="absolute -top-1 -right-1 text-yellow-400 text-xl animate-bounce">✨</span>
                 <span class="absolute -bottom-1 -left-1 text-pink-500 text-lg animate-pulse">💖</span>
-                <div class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-300">
-                    <i class="fa-solid fa-heart-pulse text-pink-500 text-2xl"></i>
+                <div class="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-300 shadow-inner">
+                    <i class="fa-solid fa-envelope-open-text text-pink-500 text-2xl"></i>
                 </div>
             </div>
         </div>
@@ -88,7 +169,7 @@
         <!-- 1. ISMLARNI KIRITISH BOSQICHI -->
         <div id="screen-name-input" class="text-center page-transition">
             <p class="text-pink-500 font-bold tracking-widest text-xs uppercase mb-1.5">Xush kelibsiz! 💕</p>
-            <h1 class="romantic-title text-3xl font-extrabold text-gray-800 leading-snug mb-5">
+            <h1 class="comfortaa-font text-3xl font-bold text-gray-800 leading-snug mb-6">
                 Maxsus Kviz taklifnomasi
             </h1>
 
@@ -126,12 +207,12 @@
         <div id="screen-intro" class="hidden text-center page-transition">
             <p class="text-pink-500 font-bold tracking-widest text-xs uppercase mb-1">Maxsus sovg'a 💌</p>
             
-            <h1 id="intro-greeting" class="romantic-title text-gray-800 leading-tight mb-5">
+            <h1 id="intro-greeting" class="comfortaa-font text-gray-800 leading-tight mb-5">
                 sen uchun, <br>
-                <span class="text-4xl md:text-5xl font-black text-rose-600 block mt-2.5 tracking-wide drop-shadow-sm animate-pulse uppercase">SARVINOZ</span>
+                <span class="caveat-font text-5xl font-black text-rose-600 block mt-2.5 tracking-wide drop-shadow-sm animate-pulse uppercase">SARVINOZ</span>
             </h1>
 
-            <h2 class="romantic-title text-2xl font-bold text-gray-800 mb-4 leading-snug">
+            <h2 class="comfortaa-font text-2xl font-bold text-gray-800 mb-4 leading-snug">
                 Kichkina kviz — <br><span class="text-pink-600">katta sir bilan</span>
             </h2>
             <p id="intro-description" class="text-gray-600 text-sm mb-8 leading-relaxed px-2 font-light">
@@ -144,13 +225,16 @@
 
         <!-- 3. SAVOLLAR EKRANI (Sozlamalar butunlay yo'qoladi) -->
         <div id="screen-quiz" class="hidden page-transition">
-            <!-- Progress bar -->
-            <div class="w-full bg-pink-100 rounded-full h-1.5 mb-6">
-                <div id="quiz-progress" class="bg-pink-500 h-1.5 rounded-full transition-all duration-300" style="width: 25%"></div>
+            <!-- Progress bar dots (Yurakchalardan iborat) -->
+            <div class="flex gap-2 justify-center mb-6" id="progress-dots">
+                <span class="dot text-xl text-pink-300 opacity-30"><i class="fa-solid fa-heart"></i></span>
+                <span class="dot text-xl text-pink-300 opacity-30"><i class="fa-solid fa-heart"></i></span>
+                <span class="dot text-xl text-pink-300 opacity-30"><i class="fa-solid fa-heart"></i></span>
+                <span class="dot text-xl text-pink-300 opacity-30"><i class="fa-solid fa-heart"></i></span>
             </div>
 
             <!-- Savol matni -->
-            <h2 id="quiz-question" class="romantic-title text-xl md:text-2xl font-bold text-gray-800 text-center mb-8 px-2 leading-snug min-h-[64px]">
+            <h2 id="quiz-question" class="comfortaa-font text-xl md:text-2xl font-bold text-gray-800 text-center mb-8 px-2 leading-snug min-h-[64px]">
                 Savol yuklanmoqda...
             </h2>
 
@@ -169,44 +253,43 @@
         <div id="screen-success" class="hidden page-transition">
             <div class="text-center mb-6">
                 <span class="inline-block bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2">to'g'ri tanlading 💕</span>
-                <h1 id="success-title" class="romantic-title text-2xl md:text-3xl font-bold text-gray-800">Uchrashuv taklifi!</h1>
+                <h1 id="success-title" class="comfortaa-font text-2xl md:text-3xl font-bold text-gray-800">Uchrashuv taklifi!</h1>
             </div>
 
             <!-- Chipta dizayni -->
-            <div class="relative bg-gradient-to-br from-rose-50 to-pink-50 border-2 border-pink-200 rounded-2xl p-6 overflow-hidden shadow-inner mb-6">
-                <!-- Dekorativ chipta teshiklari -->
-                <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-r-2 border-pink-200"></div>
-                <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-l-2 border-pink-200"></div>
-
+            <div class="ticket-cut relative bg-white border-2 border-pink-100 rounded-3xl p-6 overflow-hidden shadow-2xl mb-6">
                 <!-- Chipta sarlavhasi -->
-                <div class="flex justify-between items-center border-b border-dashed border-pink-200 pb-4 mb-4">
+                <div class="flex justify-between items-center border-b-2 border-dashed border-pink-100 pb-4 mb-4">
                     <div class="flex items-center space-x-2">
-                        <span class="text-xl">🎪</span>
-                        <span class="font-bold text-xs text-gray-700 tracking-wider">MAGIC CITY</span>
+                        <span class="text-2xl">🎪</span>
+                        <span class="ticket-brand font-bold text-lg text-rose-500 leading-tight">
+                            MAGIC CITY
+                            <small class="block text-[9px] tracking-widest text-pink-400">Ikki kishilik chipta</small>
+                        </span>
                     </div>
-                    <span class="text-[9px] md:text-[10px] bg-rose-500 text-white font-bold px-2 py-0.5 rounded">IKKI KISHILIK CHIPTA</span>
+                    <span class="text-[9px] md:text-[10px] bg-rose-500 text-white font-bold px-2.5 py-1 rounded-full">VIP PASS</span>
                 </div>
 
                 <!-- Chipta tafsilotlari -->
                 <div class="space-y-4 text-sm">
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-400 font-medium">KIM UCHUN:</span>
-                        <span id="ticket-user-name" class="font-extrabold text-pink-600 text-right text-lg animate-pulse tracking-wide uppercase">Sarvinoz ✨</span>
+                        <span class="text-gray-400 font-medium text-xs tracking-wider uppercase">KIM UCHUN:</span>
+                        <span id="ticket-user-name" class="font-extrabold text-pink-600 text-right text-lg animate-pulse tracking-wide uppercase caveat-font">Sarvinoz ✨</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-400 font-medium">SEANS:</span>
+                        <span class="text-gray-400 font-medium text-xs tracking-wider uppercase">SEANS:</span>
                         <span id="ticket-seans" class="font-bold text-gray-800 text-right">O'yinchoqlar tarixi 5 🧸</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-400 font-medium">QACHON:</span>
+                        <span class="text-gray-400 font-medium text-xs tracking-wider uppercase">QACHON:</span>
                         <span id="ticket-date" class="font-bold text-gray-800 text-right">Chorshanba, 24-iyun</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-400 font-medium">VAQT:</span>
+                        <span class="text-gray-400 font-medium text-xs tracking-wider uppercase">VAQT:</span>
                         <span class="font-bold text-gray-800 text-right">23:00</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-gray-400 font-medium">JOY:</span>
+                        <span class="text-gray-400 font-medium text-xs tracking-wider uppercase">JOY:</span>
                         <span class="font-bold text-pink-600 text-right flex items-center gap-1 justify-end">
                             yonimda <i class="fa-solid fa-heart animate-pulse"></i>
                         </span>
@@ -302,8 +385,8 @@
             </div>
 
             <!-- Modal Footer (Saqlash tugmasi) -->
-            <div class="pt-4 border-t border-pink-100 mt-4 flex-shrink-0">
-                <button onclick="saveCustomQuestions()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3.5 px-4 rounded-2xl text-sm transition-all flex items-center justify-center space-x-2 shadow-lg shadow-pink-100 active:scale-95">
+            <div class="pt-4 border-t border-pink-100 mt-4 flex-shrink-0 font-sans">
+                <button onclick="saveCustomQuestions()" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold py-3.5 px-4 rounded-2xl text-xs transition-all flex items-center justify-center space-x-2 shadow-lg shadow-pink-100 active:scale-95">
                     <i class="fa-solid fa-floppy-disk"></i>
                     <span>O'zgarishlarni saqlash</span>
                 </button>
@@ -368,26 +451,32 @@
                 });
             }
         }
-    </script>
 
-    <!-- Fonga romantik suzuvchi yurakchalar generatori -->
-    <div id="hearts-container" class="absolute inset-0 overflow-hidden pointer-events-none z-0"></div>
-    <script>
-        function createHeart() {
-            const container = document.getElementById('hearts-container');
-            if(!container) return;
-            const heart = document.createElement('i');
-            heart.classList.add('fa-solid', 'fa-heart', 'heart');
-            
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = Math.random() * 15 + 10 + 'px';
-            const duration = Math.random() * 3 + 4;
-            heart.style.animationDuration = duration + 's';
-            
-            container.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, duration * 1000);
+        // Chiroyli vizual confetti yomg'iri
+        function launchConfetti() {
+            const colors = ['#E25C7C', '#C9305C', '#F2B66B', '#FFD2D7', '#4A2C39'];
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'fixed text-xl pointer-events-none z-50 animate-bounce select-none';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '-20px';
+                    heart.style.color = colors[Math.floor(Math.random() * chordsLength())];
+                    heart.innerHTML = ['💖', '❤️', '✨', '🎈', '🎉'][Math.floor(Math.random() * 5)];
+                    
+                    const duration = Math.random() * 2 + 1.5;
+                    heart.style.transition = `all ${duration}s linear`;
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.style.transform = `translateY(110vh) translateX(${(Math.random() - 0.5) * 100}px) rotate(${Math.random() * 360}deg)`;
+                    }, 50);
+
+                    setTimeout(() => { heart.remove(); }, duration * 1000);
+                }, i * 35);
+            }
         }
-        setInterval(createHeart, 450);
+        function chordsLength() { return 5; }
     </script>
 
     <!-- Kviz Logikasi -->
@@ -396,31 +485,6 @@
         let boyName = "Akmal";
         let currentStepIndex = 0;
         let lastDodgeTime = 0;
-
-        // Sana va kunni dinamik aniqlash funksiyasi (Eng yaqin Chorshanba kunining real sanasini hisoblaydi)
-        function getUpcomingWednesdayDate() {
-            const today = new Date();
-            const dayOfWeek = today.getDay(); // 0: Yak, 1: Dush, ..., 3: Chor, ...
-            let daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
-            
-            // Agar bugun Chorshanba bo'lsa, kelasi haftadagi Chorshanbani ko'rsatamiz
-            if (daysUntilWednesday === 0) {
-                daysUntilWednesday = 7;
-            }
-            
-            const targetDate = new Date(today);
-            targetDate.setDate(today.getDate() + daysUntilWednesday);
-            
-            const months = [
-                "yanvar", "fevral", "mart", "aprel", "may", "iyun", 
-                "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"
-            ];
-            
-            const day = targetDate.getDate();
-            const month = months[targetDate.getMonth()];
-            
-            return `Chorshanba, ${day}-${month}`;
-        }
 
         // Standart kviz savollari va 3 talik variantlari (1 to'g'ri, 2 noto'g'ri)
         let quizData = [
@@ -458,6 +522,24 @@
             }
         ];
 
+        // Dinamik yaqinlashayotgan chorshanba kunini hisoblash algoritmi
+        function getUpcomingWednesdayDate() {
+            const today = new Date();
+            const dayOfWeek = today.getDay(); // 0: Yak, 1: Dush, ... 3: Chor
+            let daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
+            if (daysUntilWednesday === 0) daysUntilWednesday = 7; // Agar bugun chorshanba bo'lsa kelasi hafta chorshanbasini beradi
+            
+            const targetDate = new Date(today);
+            targetDate.setDate(today.getDate() + daysUntilWednesday);
+            
+            const months = [
+                "yanvar", "fevral", "mart", "aprel", "may", "iyun",
+                "iyul", "avgust", "sentabr", "oktabr", "noyabr", "decabr"
+            ];
+            
+            return `Chorshanba, ${targetDate.getDate()}-${months[targetDate.getMonth()]}`;
+        }
+
         const funnyToasts = [
             "Yo'q endi 🙅‍♀️",
             "Jiddiy-mi? 🤨",
@@ -471,11 +553,9 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             initSettingsForm();
-            // Yuklanish vaqtida dinamik sanani hisoblab chiptaga o'rnatish
-            document.getElementById('ticket-date').innerText = getUpcomingWednesdayDate();
         });
 
-        // Sozlamalar oynasida joriy qiymatlarni (3 talik variantlar bilan) to'ldirish
+        // Sozlamalar oynasida joriy qiymatlarni to'ldirish
         function initSettingsForm() {
             document.getElementById('set-q1-text').value = quizData[0].question;
             document.getElementById('set-q1-correct').value = quizData[0].options[0].text;
@@ -541,7 +621,7 @@
             // Chipta tafsilotlarini yangi tahrirlangan qiymatlar bilan yangilash
             document.getElementById('ticket-seans').innerText = `${quizData[2].options[0].text} 🧸`;
             
-            // Agar yigit 1-savol to'g'ri javobini o'zgartirsa, chiptadagi sana ham o'sha tahrirlangan kunga o'tadi
+            // Agar birinchi savol "Ha" javobida saqlansa - dinamik hisoblangan yaqin Chorshanba kunini qo'yamiz
             const opt1_raw = quizData[0].options[0].text;
             const cleanDate = opt1_raw.includes("Ha") ? getUpcomingWednesdayDate() : opt1_raw;
             document.getElementById('ticket-date').innerText = cleanDate;
@@ -579,8 +659,8 @@
             girlName = girlInput;
             boyName = boyInput;
 
-            // Ismlarni matnlarga juda katta ko'rinishda integratsiya qilish
-            document.getElementById('intro-greeting').innerHTML = `sen uchun, <br><span class="text-4.5xl md:text-5xl font-extrabold text-rose-600 block mt-2 tracking-wide drop-shadow-sm animate-pulse uppercase">${girlName}</span> 💌`;
+            // Ismlarni matnlarga dinamik va juda katta ko'rinishda joylashtirish
+            document.getElementById('intro-greeting').innerHTML = `sen uchun, <br><span class="text-4.5xl md:text-5xl font-extrabold text-rose-600 block mt-2 tracking-wide drop-shadow-sm animate-pulse uppercase caveat-font">${girlName}</span> 💌`;
             document.getElementById('intro-description').innerText = `Bir nechta savolga javob ber... lekin ehtiyot bo'l — ${boyName}ning ba'zi tugmalari juda injiq va qaysar 🫣`;
             
             document.getElementById('ticket-user-name').innerText = `${girlName} ✨`;
@@ -614,8 +694,17 @@
         function loadQuestion() {
             const currentData = quizData[currentStepIndex];
             
-            const progressPercent = ((currentStepIndex + 1) / quizData.length) * 100;
-            document.getElementById('quiz-progress').style.width = `${progressPercent}%`;
+            // Progress dots status yangilanishi
+            const dots = document.querySelectorAll('#progress-dots .dot');
+            dots.forEach((dot, index) => {
+                if (index <= currentStepIndex) {
+                    dot.classList.add('on', 'text-rose-500');
+                    dot.classList.remove('opacity-30', 'text-pink-300');
+                } else {
+                    dot.classList.remove('on', 'text-rose-500');
+                    dot.classList.add('opacity-30', 'text-pink-300');
+                }
+            });
 
             document.getElementById('quiz-question').innerText = currentData.question;
 
@@ -639,6 +728,7 @@
                     loadQuestion();
                 } else {
                     playSound('final');
+                    launchConfetti();
                     showScreen('screen-success');
                 }
             });
@@ -656,7 +746,7 @@
                 wrongBtn.dataset.dodges = "0";
 
                 // Har bir noto'g'ri javobni o'zining boshlang'ich balandligi bilan ketma-ket joylashtiramiz
-                const initialTop = 72 + (index * 64);
+                const initialTop = 76 + (index * 64);
                 wrongBtn.style.top = `${initialTop}px`;
                 wrongBtn.style.left = "0px";
                 wrongBtn.style.width = "100%";
