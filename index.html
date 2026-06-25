@@ -181,7 +181,7 @@
     <!-- Asosiy Card Konteyner -->
     <div class="w-full max-w-md bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-6 md:p-8 border border-white/50 z-10 transition-all duration-500 my-auto">
         
-        <!-- Yuqoridagi Bezak -->
+        <!-- Yuqoridagi Chiroyli Bezak -->
         <div class="flex justify-center mb-6">
             <div class="relative">
                 <span class="absolute -top-1 -right-1 text-yellow-400 text-xl animate-bounce">✨</span>
@@ -347,7 +347,7 @@
             </div>
 
             <!-- Tahrirlash maydonlari -->
-            <div class="overflow-y-auto pr-1 space-y-5 flex-grow text-xs text-left">
+            <div class="overflow-y-auto pr-1 space-y-5 flex-grow text-xs text-left" dir="ltr">
                 
                 <!-- Savol 1 -->
                 <div class="bg-pink-50/50 p-4 rounded-2xl border border-pink-100">
@@ -414,8 +414,8 @@
         </div>
     </div>
 
-    <!-- Toast Bildirishnoma (Pastda chiqadigan, "Boshqasini bos 💖" va boshqa erkalovchi so'zlar) -->
-    <div id="toast"></div>
+    <!-- Toast Bildirishnoma (Xuddi rasmdagidek pastda qora dumaloq chiqadigan "Boshqasini bos 💖" ko'rinishi) -->
+    <div id="toast" class="font-sans"></div>
 
     <!-- Web Audio API (Chertish va uchrashuv tugaganda g'alaba tovushlari) -->
     <script>
@@ -529,7 +529,7 @@
             return `Chorshanba, ${targetDate.getDate()}-${months[targetDate.getMonth()]}`;
         }
 
-        // Yangi talab qilingan erkalovchi va qiziqarli toast xabarlari (Faqat siz xohlagan so'zlar)
+        // Qaysar va qiziqarli toast xabarlari
         const funnyToasts = [
             "Boshqasini bos 💖",
             "Rozi bo'laver endi 😘",
