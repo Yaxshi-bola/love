@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome piktogrammalar uchun -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts (Video va MHT andozasi bilan bir xil) -->
+    <!-- Google Fonts (Fayl va video andozasiga to'liq mos holda) -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Comfortaa:wght@500;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -146,27 +146,8 @@
 </head>
 <body class="relative flex flex-col items-center justify-center p-4 min-h-screen">
 
-    <!-- Suzuvchi romantik emojilar generatori -->
+    <!-- Suzuvchi romantik emojilar generatori (Dinamik fon) -->
     <div id="ambient" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
-    <script>
-        const emojies = ['💕', '💖', '✨', '🌸', '🧸', '💌', '🍬'];
-        function createFloaty() {
-            const container = document.getElementById('ambient');
-            if (!container) return;
-            const floaty = document.createElement('div');
-            floaty.classList.add('floaty');
-            floaty.innerText = emojies[Math.floor(Math.random() * emojies.length)];
-            
-            floaty.style.left = Math.random() * 100 + 'vw';
-            floaty.style.fontSize = Math.random() * 14 + 14 + 'px';
-            const duration = Math.random() * 5 + 7; // 7s to 12s
-            floaty.style.animationDuration = duration + 's';
-            
-            container.appendChild(floaty);
-            setTimeout(() => { floaty.remove(); }, duration * 1000);
-        }
-        setInterval(createFloaty, 600);
-    </script>
 
     <!-- Telegram Kanal havolasi -->
     <div class="absolute top-4 right-4 z-40">
@@ -220,7 +201,7 @@
                 <span>Davom etish ✨</span>
             </button>
 
-            <!-- Tishli g'ildirakcha sozlamalar tugmasi (faqat birinchi ekranda chiqadi) -->
+            <!-- Tishli g'ildirakcha sozlamalar tugmasi -->
             <div id="settings-trigger-container" class="mt-6 flex justify-center">
                 <button onclick="toggleSettingsModal(true)" class="inline-flex items-center space-x-1.5 text-xs text-gray-400 hover:text-pink-500 transition-all font-bold">
                     <i class="fa-solid fa-gear animate-spin-slow text-sm text-pink-300"></i>
@@ -249,7 +230,7 @@
             </button>
         </div>
 
-        <!-- 3. SAVOLLAR EKRANI (Boshlanganda sozlamalar tugmasi butunlay yo'qoladi) -->
+        <!-- 3. SAVOLLAR EKRANI -->
         <div id="screen-quiz" class="hidden page-transition">
             <!-- Progress bar dots (Yurakchalardan iborat progress) -->
             <div class="flex gap-2 justify-center mb-6" id="progress-dots">
@@ -343,7 +324,9 @@
                     <i class="fa-solid fa-sliders text-pink-500"></i>
                     <span>Savollarni tahrirlash</span>
                 </h3>
-                <button onclick="toggleSettingsModal(false)" class="text-rose-500 hover:text-rose-700"><i class="fa-solid fa-circle-xmark text-2xl"></i></button>
+                <button onclick="toggleSettingsModal(false)" class="text-rose-500 hover:text-rose-700">
+                    <i class="fa-solid fa-circle-xmark text-2xl"></i>
+                </button>
             </div>
 
             <!-- Tahrirlash maydonlari -->
@@ -414,11 +397,66 @@
         </div>
     </div>
 
-    <!-- Toast Bildirishnoma (Xuddi rasmdagidek pastda qora dumaloq chiqadigan "Boshqasini bos 💖" ko'rinishi) -->
+    <!-- Toast Bildirishnoma (Pastda chiqadigan, erkalovchi qiziqarli toast so'zlar) -->
     <div id="toast" class="font-sans"></div>
 
-    <!-- Web Audio API (Chertish va uchrashuv tugaganda g'alaba tovushlari) -->
+    <!-- Web Audio API (Tugma bosish va g'alaba tovush effektlari uchun) -->
     <script>
+        // Barcha global o'zgaruvchilar va ma'lumotlar zaxirasi
+        let girlName = "Sarvinoz";
+        let boyName = "Akmal";
+        let currentStepIndex = 0;
+        let lastDodgeTime = 0;
+
+        // Standart kviz savollari va 3 talik variantlari (1 to'g'ri, 2 noto'g'ri)
+        let quizData = [
+            {
+                question: "Chorshanba kuni vaqting bormi?",
+                options: [
+                    { text: "Ha, albatta bor 🦄", correct: true },
+                    { text: "Band bo'lishim mumkin 🥺", correct: false },
+                    { text: "Hmm, bilmadim 🤫", correct: false }
+                ]
+            },
+            {
+                question: "Birga qayerga boramiz?",
+                options: [
+                    { text: "Magic City 🏰", correct: true },
+                    { text: "Yana ishga 💼", correct: false },
+                    { text: "Hech qayerga, dangasalik 🛌", correct: false }
+                ]
+            },
+            {
+                question: "Nima ko'ramiz?",
+                options: [
+                    { text: "O'yinchoqlar tarixi 5 🧸", correct: true },
+                    { text: "Qo'rqinchli film 🎬", correct: false },
+                    { text: "Soliqlar haqida film 📊", correct: false }
+                ]
+            },
+            {
+                question: "Shu oqshomni men bilan o'tkazasanmi?",
+                options: [
+                    { text: "Ha, albatta ❤️", correct: true },
+                    { text: "O'ylab ko'rishim kerak 🧐", correct: false },
+                    { text: "Yo'q, vaqtim yo'q 🥱", correct: false }
+                ]
+            }
+        ];
+
+        // Qaysar va qiziqarli erkalovchi toast xabarlari (Faqat siz xohlagan so'zlar)
+        const funnyToasts = [
+            "Boshqasini bos 💖",
+            "Rozi bo'laver endi 😘",
+            "Xo'p deyaqol 🙈",
+            "Yo'q endi 🙅‍♀️",
+            "Jiddiy-mi? 🤨",
+            "Baribir foydasi yo'q 😜",
+            "Faqat to'g'ri javob! ❤️",
+            "Yo'q-yo'q 🚫"
+        ];
+
+        // Web Audio API ishga tushirish (Hech qanday HTML Audio elementsiz ishlaydi va xato bermaydi)
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
         function playSound(type) {
@@ -498,22 +536,13 @@
                 }, i * 35);
             }
         }
-    </script>
-
-    <!-- Kviz Logikasi -->
-    <script>
-        let girlName = "Sarvinoz";
-        let boyName = "Akmal";
-        let currentStepIndex = 0;
-        let lastDodgeTime = 0;
 
         // Dinamik yaqinlashayotgan chorshanba kunini hisoblash algoritmi
         function getUpcomingWednesdayDate() {
             const today = new Date();
-            const dayOfWeek = today.getDay(); // 0: Yak, 1: Dush, 2: Sesh, 3: Chor, 4: Pay, 5: Jum, 6: Shan
+            const dayOfWeek = today.getDay(); // 0: Yak, 1: Dush, 2: Sesh, 3: Chor...
             let daysUntilWednesday = (3 - dayOfWeek + 7) % 7;
             
-            // Agar bugun Chorshanba bo'lsa, kelasi haftadagi Chorshanbani ko'rsatamiz
             if (daysUntilWednesday === 0) {
                 daysUntilWednesday = 7;
             }
@@ -529,57 +558,7 @@
             return `Chorshanba, ${targetDate.getDate()}-${months[targetDate.getMonth()]}`;
         }
 
-        // Qaysar va qiziqarli toast xabarlari
-        const funnyToasts = [
-            "Boshqasini bos 💖",
-            "Rozi bo'laver endi 😘",
-            "Xo'p deyaqol 🙈",
-            "Yo'q endi 🙅‍♀️",
-            "Jiddiy-mi? 🤨",
-            "Baribir foydasi yo'q 😜",
-            "Faqat to'g'ri javob! ❤️",
-            "Yo'q-yo'q 🚫"
-        ];
-
-        // Toast bildirishnomasi ko'rsatish
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.innerText = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 1800);
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            initSettingsForm();
-        });
-
-        // Sozlamalar oynasida joriy qiymatlarni (3 talik variantlar bilan) to'ldirish
-        function initSettingsForm() {
-            document.getElementById('set-q1-text').value = quizData[0].question;
-            document.getElementById('set-q1-correct').value = quizData[0].options[0].text;
-            document.getElementById('set-q1-wrong1').value = quizData[0].options[1].text;
-            document.getElementById('set-q1-wrong2').value = quizData[0].options[2].text;
-
-            document.getElementById('set-q2-text').value = quizData[1].question;
-            document.getElementById('set-q2-correct').value = quizData[1].options[0].text;
-            document.getElementById('set-q2-wrong1').value = quizData[1].options[1].text;
-            document.getElementById('set-q2-wrong2').value = quizData[1].options[2].text;
-
-            document.getElementById('set-q3-text').value = quizData[2].question;
-            document.getElementById('set-q3-correct').value = quizData[2].options[0].text;
-            document.getElementById('set-q3-wrong1').value = quizData[2].options[1].text;
-            document.getElementById('set-q3-wrong2').value = quizData[2].options[2].text;
-
-            document.getElementById('set-q4-text').value = quizData[3].question;
-            document.getElementById('set-q4-correct').value = quizData[3].options[0].text;
-            document.getElementById('set-q4-wrong1').value = quizData[3].options[1].text;
-            document.getElementById('set-q4-wrong2').value = quizData[3].options[2].text;
-        }
-
-        // Sozlamalar modalini ochish / yopish
+        // Tishli g'ildirakcha sozlamalar modalini ochish / yopish
         function toggleSettingsModal(show) {
             const modal = document.getElementById('settings-modal');
             if (show) {
@@ -624,6 +603,30 @@
             playSound('success');
         }
 
+        // Sozlamalar oynasida joriy qiymatlarni (3 talik variantlar bilan) to'ldirish
+        function initSettingsForm() {
+            document.getElementById('set-q1-text').value = quizData[0].question;
+            document.getElementById('set-q1-correct').value = quizData[0].options[0].text;
+            document.getElementById('set-q1-wrong1').value = quizData[0].options[1].text;
+            document.getElementById('set-q1-wrong2').value = quizData[0].options[2].text;
+
+            document.getElementById('set-q2-text').value = quizData[1].question;
+            document.getElementById('set-q2-correct').value = quizData[1].options[0].text;
+            document.getElementById('set-q2-wrong1').value = quizData[1].options[1].text;
+            document.getElementById('set-q2-wrong2').value = quizData[1].options[2].text;
+
+            document.getElementById('set-q3-text').value = quizData[2].question;
+            document.getElementById('set-q3-correct').value = quizData[2].options[0].text;
+            document.getElementById('set-q3-wrong1').value = quizData[2].options[1].text;
+            document.getElementById('set-q3-wrong2').value = quizData[2].options[2].text;
+
+            document.getElementById('set-q4-text').value = quizData[3].question;
+            document.getElementById('set-q4-correct').value = quizData[3].options[0].text;
+            document.getElementById('set-q4-wrong1').value = quizData[3].options[1].text;
+            document.getElementById('set-q4-wrong2').value = quizData[3].options[2].text;
+        }
+
+        // Ismlarni tasdiqlab keyingi ekranga o'tish
         function saveNameAndStart() {
             const girlInput = document.getElementById('user-name-field').value.trim();
             const boyInput = document.getElementById('boy-name-field').value.trim();
@@ -679,6 +682,17 @@
             document.getElementById(screenId).classList.remove('hidden');
         }
 
+        // Toast bildirishnomasi ko'rsatish
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 1800);
+        }
+
         // Kviz muvaffaqiyatli yakunlanganda barcha ma'lumotlarni chiptaga xatosiz va DINAMIK yuklash
         function showSuccessScreen() {
             // 1. Ism
@@ -690,7 +704,7 @@
             
             // 3. Sana (1-savolning to'g'ri javobi)
             const correctDateOpt = quizData[0].options.find(opt => opt.correct).text;
-            // Agar birinchi savolning to'g'ri javobi standart "Ha..." matni bo'lsa yoki o'zgartirilmagan bo'lsa - avtomatik chorshanba sanasini hisoblab yozadi
+            // Agar birinchi savolning to'g'ri javobi standart "Ha..." matni bo'lsa - avtomatik chorshanba sanasini hisoblab yozadi
             const cleanDate = (correctDateOpt.includes("Ha") || correctDateOpt.toLowerCase().includes("ha")) 
                 ? getUpcomingWednesdayDate() 
                 : correctDateOpt;
@@ -740,7 +754,6 @@
                 if (currentStepIndex < quizData.length) {
                     loadQuestion();
                 } else {
-                    // Kviz yakunlanganda barcha chipta ma'lumotlarini dinamik yangilovchi funksiyani chaqiramiz
                     showSuccessScreen();
                 }
             });
@@ -861,6 +874,50 @@
             if (settingsTrigger) settingsTrigger.classList.remove('hidden');
 
             showScreen('screen-name-input');
+        }
+
+        // Fonga emojilar qo'shish generatori
+        function startFloatingBackground() {
+            const container = document.getElementById('ambient');
+            if (!container) return;
+            
+            // Eski emojilarni tozalash
+            container.innerHTML = '';
+            
+            function createFloaty() {
+                const floaty = document.createElement('div');
+                floaty.classList.add('floaty');
+                floaty.innerText = emojies[Math.floor(Math.random() * emojies.length)];
+                
+                floaty.style.left = Math.random() * 100 + 'vw';
+                floaty.style.fontSize = Math.random() * 14 + 14 + 'px';
+                const duration = Math.random() * 5 + 7; // 7s to 12s
+                floaty.style.animationDuration = duration + 's';
+                
+                container.appendChild(floaty);
+                setTimeout(() => { floaty.remove(); }, duration * 1000);
+            }
+            
+            // Dastlabki emojilarni yaratish
+            for(let i=0; i<8; i++) {
+                setTimeout(createFloaty, Math.random() * 3000);
+            }
+            
+            setInterval(createFloaty, 600);
+        }
+
+        // Iframe va preview brauzerlarda savollar mutlaqo o'chib qolmasligi uchun "Ready-State Check" tizimi
+        function initApp() {
+            initSettingsForm();
+            document.getElementById('ticket-date').innerText = getUpcomingWednesdayDate();
+            startFloatingBackground();
+        }
+
+        // Agar DOM allaqachon yuklangan bo'lsa darhol ishga tushirish, aks holda yuklanishini kutish
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
         }
     </script>
 
